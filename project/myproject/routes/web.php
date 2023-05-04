@@ -26,10 +26,8 @@ Route::post('/postlogin',[AuthController::class, 'postlogin']);
 
 Route::group(['middleware' => 'auth'], function(){
     
-    Route::get('/', function () {
-        return view('home');
-    });
     Route::get('/dashboard',[DashboardController::class, 'index']);
+    Route::get('/',[DashboardController::class, 'index']);
 
     #method karyawan
     Route::get('/karyawan',[KaryawanController::class, 'index']);

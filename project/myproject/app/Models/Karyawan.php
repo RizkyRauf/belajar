@@ -31,5 +31,17 @@ class Karyawan extends Model
         'lokasi_kantor',
         'status',
         'pendidikan',
+        'avatar',
     ];
+
+    public function getAvatar()
+    {
+        // jika avatar tidak ada, avatar akan di isi default avatar yang di ambil dari folder /public/images
+        if(!$this->avatar){
+            return asset('images/default.jpg');
+        }
+
+        //jika file ditemukan.
+        return asset('images/'.$this->avatar);
+    }
 }
