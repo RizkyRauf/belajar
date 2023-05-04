@@ -8,14 +8,19 @@ class KaryawanController extends Controller
 {
     public function index(Request $request)
     {
-        //method pencarian
-        if ($request->has('cari')){
-            $data_karyawan = \App\Models\Karyawan::where('nama_lengkap', 'LIKE', '%'.$request->cari.'%')->get();
-        }else{
+        $data_karyawan = \App\Models\Karyawan::query();
 
-            $data_karyawan = \App\Models\Karyawan::all();
+        //method pencarian
+        if ($request->has('nama_lengkap')) {
+            $data_karyawan = $data_karyawan->where('nama_lengkap', 'LIKE', '%'.$request->nama_lengkap.'%');
         }
-        return view('karyawan.index', ['data_karyawan' => $data_karyawan]);
+
+        if ($request->has('lokasi_kantor')) {
+            $data_karyawan = $data_karyawan->where('lokasi_kantor', 'LIKE', '%'.$request->lokasi_kantor.'%');
+        }
+
+        $data_karyawan = $data_karyawan->get();
+        return view('karyawan.index', compact('data_karyawan'));
     }
 
     public function create(Request $request)
@@ -45,10 +50,20 @@ class KaryawanController extends Controller
 
     public function update(Request $request, $id)
     {
+        // dd($request->all());
         $karyawan = \App\Models\Karyawan::find($id);
         $karyawan->update($request->all());
+        
+        //cek file upload
+        if($request->hasFile('avatar')){
+            //upload file kedalam folder // menyimpan
+            $request->file('avatar')->move('images/',$request->file('avatar')->getClientOriginalName());
+            //upload kedalam database
+            $karyawan->avatar = $request->file('avatar')->getClientOriginalName();
+            $karyawan->save();
+        }
 
-        // perbarui role user terkait dengan karyawan
+        // Jika Role dalam database karyawan di update maka role dama database user ikut di update
         $user = \App\Models\User::find($karyawan->karyawan_id);
         $user->role = $request->role;
         $user->save();

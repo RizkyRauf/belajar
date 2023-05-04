@@ -5,24 +5,54 @@
     <div class="main-content">
         <div class="container-fluid">
             <!-- Konten atas table -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="demo-button">
+								
+                                <button type="button" class="btn btn-default btn-toastr" data-toggle="modal" data-target="#exampleModal">
+                                    <i class="fas fa-file-excel"></i><span> Form Karyawan</span>
+                                </button>
 
+                                <button type="button" class="btn btn-default btn-toastr" data-toggle="modal" data-target="#exampleModal">
+                                    <i class="fas fa-file-upload"></i><span> Upload File</span>
+                                </button>
+								
+                                <button type="button" class="btn btn-default btn-toastr" data-toggle="modal" data-target="#exampleModal">
+                                    <i class="fas fa-file-download"></i><span> Download File</span>
+                                </button>
+
+                                <button type="button" class="btn btn-default btn-toastr" data-toggle="modal" data-target="#exampleModal">
+                                    <i class="fas fa-plus"></i><span> Karyawan</span>
+                                </button>
+                                
+							</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!-- end Konten atas table -->
 
             <!-- Konten table -->
             <div class="row">
                 <div class="col-md-12">
                     <div class="panel">
-                        <!-- <div class="panel-heading">
+                        <div class="panel-heading">
 
                             <h3>Data karyawan</h3>
 
                             <div class="right">
-                                <button type="button" class="btn right" data-toggle="modal" data-target="#exampleModal">
-                                    <i class="fas fa-plus"></i>
-                                </button>
+                                <form class="form-inline my-2 my-lg-0">
+                                    <input name="nama_lengkap" class="form-control mr-sm-2" type="search" placeholder="Search Name" aria-label="Search">
+                                    <input name="lokasi_kantor" class="form-control mr-sm-2" type="search" placeholder="Search Kantor" aria-label="Search">
+                                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+                                    <i class="fas fa-search"></i></button>
+                                </form>
+                                
                             </div>
 
-                        </div> -->
+                        </div>
                         <div class="panel-body no-padding">
                             <table class="table table-hover">
                                 <thead>
@@ -278,8 +308,10 @@
                         </div>
                     </div>
                     
-                    <div class="form-row">
-                        <button type="submit" class="btn btn-success">submit</button>
+                    <div class="form">
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-success">submit</button>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -306,7 +338,7 @@
                                 <div class="panel">
                                     <div class="panel-headling">
                                         <div class="card-body text-center">
-                                            <img src="assets/img/user-medium.png" class="img-circle" alt="Avatar">
+                                            <img src="{{$p->getAvatar()}}" width="100" height="100" class="img-circle" alt="Avatar">
                                             <h2 class="heading">{{ $p->nama_lengkap }}</h2>
                                             <span>
                                                 <h4 class="font-bold">{{ $p->divisi }}</h4>
