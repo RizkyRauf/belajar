@@ -44,7 +44,7 @@ class AuthController extends Controller
 
             $diff_in_minutes = $last_login->diffInMinutes($current_time);
 
-            if($diff_in_minutes > 180){
+            if($diff_in_minutes > 120){
                 Auth::logout();
                 return redirect('login')->with('error', 'Session expired, please login again');
             } else {

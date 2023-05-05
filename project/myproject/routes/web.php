@@ -28,11 +28,16 @@ Route::group(['middleware' => 'auth'], function(){
     
     Route::get('/dashboard',[DashboardController::class, 'index']);
     Route::get('/',[DashboardController::class, 'index']);
-
+    
+    
     #method karyawan
     Route::get('/karyawan',[KaryawanController::class, 'index']);
     Route::post('/karyawan/create',[KaryawanController::class, 'create']);
     Route::get('/karyawan/{id}/edit',[KaryawanController::class, 'edit']);
     Route::get('/karyawan/{id}/delete',[KaryawanController::class, 'delete']);
     Route::post('/karyawan/{id}/update',[KaryawanController::class, 'update']);
+    
+    #route import
+    Route::post('/karyawan/import', [KaryawanController::class, 'import'])->name('karyawan.import');
+
 });
