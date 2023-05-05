@@ -29,7 +29,7 @@ return new class extends Migration
             $table->string('status');
             $table->unsignedBigInteger('nik_ktp')->unique();
             $table->unsignedBigInteger('no_npwp')->unique();
-            $table->unsignedBigInteger('nomer_telepon')->unique();
+            $table->unsignedBigInteger('nomer_telepon');
             $table->text('alamat');
             $table->string('email');
             $table->string('email_kantor');

@@ -38,7 +38,7 @@
 							<script>
 								setTimeout(function() {
 									document.querySelector('#errorAlert').setAttribute('hidden', true);
-								}, 3000); // ganti angka 3000 dengan jumlah milidetik yang diinginkan (misalnya 5000 untuk 5 detik)
+								}, 2000); // ganti angka 3000 dengan jumlah milidetik yang diinginkan (misalnya 5000 untuk 5 detik)
 							</script>
 						@endif
 
@@ -49,7 +49,7 @@
 							<script>
 								setTimeout(function() {
 									document.querySelector('.alert').setAttribute('hidden', true);
-								}, 3000); // ganti angka 5000 dengan jumlah milidetik yang diinginkan (misalnya 3000 untuk 3 detik)
+								}, 2000); // ganti angka 5000 dengan jumlah milidetik yang diinginkan (misalnya 3000 untuk 3 detik)
 							</script>
 						@endif
 						<div class="header">

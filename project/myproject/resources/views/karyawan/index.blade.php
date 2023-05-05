@@ -30,9 +30,6 @@
                             <div class="card-body">
                                 <p class="demo-button">
                                     
-                                    <button type="button" class="btn btn-default btn-toastr" data-toggle="modal" data-target="#exampleModal">
-                                        <i class="fas fa-file-excel"></i><span> Form Karyawan</span>
-                                    </button>
 
                                     <button type="button" class="btn btn-default btn-toastr" data-toggle="modal" data-target="#exampleModalImport">
                                         <i class="fas fa-file-upload"></i><span> Import File</span>
@@ -199,7 +196,7 @@
                             
                             <div class="form-group col-md-6">
                                 <label for="exampleInputEmail1">Tanggal Lahir</label>
-                                <input type="date" id="tanggal" name="tanggal" class="form-control" autocomplete="off" placeholder="Tempat Lahir....">
+                                <input type="date" id="tanggal" name="tanggal" class="form-control" autocomplete="off" placeholder="Tanggal Lahir...." value="{{ date('Y-m-d') }}">
                             </div>  
                         </div>
         
