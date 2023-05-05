@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
 
 class Karyawan extends Model
 {
@@ -13,6 +14,7 @@ class Karyawan extends Model
         'karyawan_id',
         'role',
         'nama_lengkap',
+        'role',
         'nama_panggilan',
         'tempat_lahir',
         'tanggal',
@@ -21,6 +23,8 @@ class Karyawan extends Model
         'golongan_darah',
         'jenis_kelamin',
         'jumlah_anak',
+        'pendidikan',
+        'status',
         'nik_ktp',
         'no_npwp',
         'nomer_telepon',
@@ -29,9 +33,11 @@ class Karyawan extends Model
         'email_kantor',
         'skype',
         'lokasi_kantor',
-        'status',
-        'pendidikan',
         'avatar',
+    ];
+
+    protected $attributes = [
+        'avatar' => 'default.jpg',
     ];
 
     public function getAvatar()
