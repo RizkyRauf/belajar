@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers;
 use App\Models\KaryawanImport;
+use App\Models\Karyawan;
+
+use DateTime;
+use Carbon\Carbon;
 
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 class KaryawanController extends Controller
 {
@@ -95,12 +100,13 @@ class KaryawanController extends Controller
         
         $rows = Excel::toArray(new KaryawanImport, $request->file('file'));
 
-        foreach ($rows[0] as $row) {
+        foreach ($rows[0] as $row) 
+        {
             // Insert ke table Users
             $user = new \App\Models\User();
-            $user->role = $row[2];
-            $user->name = $row[3];
-            $user->email = $row[17];
+            $user->role = $row['role'];
+            $user->name = $row['nama_panggilan'];
+            $user->email = $row['email'];
             $user->password = bcrypt('rahasia');
             $user->remember_token = \Illuminate\Support\str::random(60);
             $user->save();
@@ -110,32 +116,30 @@ class KaryawanController extends Controller
             $karyawan = new \App\Models\Karyawan();
             $karyawan->fill([
                 'karyawan_id' => $user->id,
-                'nik' => $row[0],
-                'nama_lengkap' => $row[1],
-                'role' => $row[2],
-                'nama_panggilan' => $row[3],
-                'tempat_lahir' => $row[4],
-                'tanggal' => $row[5],
-                'agama' => $row[6],
-                'divisi' => $row[7],
-                'golongan_darah' => $row[8],
-                'jenis_kelamin' => $row[9],
-                'jumlah_anak' => $row[10],
-                'pendidikan' => $row[11],
-                'status' => $row[12],
-                'nik_ktp' => $row[13],
-                'no_npwp' => $row[14],
-                'nomer_telepon' => $row[15],
-                'alamat' => $row[16],
-                'email' => $row[17],
-                'email_kantor' => $row[18],
-                'skype' => $row[19],
-                'lokasi_kantor' => $row[20],
-                'avatar' => 'default.jpg',
+                'nik' => $row['nik'],
+                'nama_lengkap' => $row['nama_lengkap'],
+                'role' => $row['role'],
+                'nama_panggilan' => $row['nama_panggilan'],
+                'tempat_lahir' => $row['tempat_lahir'],
+                'tanggal' => Carbon::createFromFormat('Y-m-d', $row['tanggal'])->format('Y-m-d'),
+                'agama' => $row['agama'],
+                'divisi' => $row['divisi'],
+                'golongan_darah' => $row['golongan_darah'],
+                'jenis_kelamin' => $row['jenis_kelamin'],
+                'jumlah_anak' => $row['jumlah_anak'],
+                'pendidikan' => $row['pendidikan'],
+                'status' => $row['status'],
+                'nik_ktp' => $row['nik_ktp'],
+                'no_npwp' => $row['no_npwp'],
+                'nomer_telepon' => $row['nomer_telepon'],
+                'alamat' => $row['alamat'],
+                'email' => $row['email'],
+                'email_kantor' => $row['email_kantor'],
+                'skype' => $row['skype'],
+                'lokasi_kantor' => $row['lokasi_kantor'],
             ]);
-            $karyawan->save();
-            
-            
+            $karyawan->save();   
+
         }
 
         return redirect()->back()->with('success', 'Data karyawan berhasil diimport!');

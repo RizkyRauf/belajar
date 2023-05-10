@@ -7,44 +7,44 @@ use Illuminate\Database\Eloquent\Model;
 
 use App\Models\Karyawan;
 use App\Models\User;
+use Carbon\Carbon;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class KaryawanImport implements ToModel
+
+class KaryawanImport implements ToModel, WithHeadingRow
 {
-    //jika avatar tidak kosong, akan di isi default.jpg untuk di database
     protected $attributes = [
         'avatar' => 'default.jpg',
     ];
-    
+
     public function model(array $row)
     {
+        // konversi nilai tanggal ke dalam format tanggal yang benar
         
-        $karyawan = new Karyawan([
-            'nik' => $row[0],
-            'nama_lengkap' => $row[1],
-            'role' => $row[2],
-            'nama_panggilan' => $row[3],
-            'tempat_lahir' => $row[4],
-            'tanggal' => $row[5],
-            'agama' => $row[6],
-            'divisi' => $row[7],
-            'golongan_darah' => $row[8],
-            'jenis_kelamin' => $row[9],
-            'jumlah_anak' => $row[10],
-            'pendidikan' => $row[11],
-            'status' => $row[12],
-            'nik_ktp' => $row[13],
-            'no_npwp' => $row[14],
-            'nomer_telepon' => $row[15],
-            'alamat' => $row[16],
-            'email' => $row[17],
-            'email_kantor' => $row[18],
-            'skype' => $row[19],
-            'lokasi_kantor' => $row[20],
-            'avatar' => $row[21] ?? $this->attributes['avatar'],
+        return new Karyawan([
+            'nik' => $row['nik'],
+            'nama_lengkap' => $row['nama_lengkap'],
+            'role' => $row['role'],
+            'nama_panggilan' => $row['nama_panggilan'],
+            'tempat_lahir' => $row['tempat_lahir'],
+            'tanggal' => $row['tanggal'],
+            'agama' => $row['agama'],
+            'divisi' => $row['divisi'],
+            'golongan_darah' => $row['golongan_darah'],
+            'jenis_kelamin' => $row['jenis_kelamin'],
+            'jumlah_anak' => $row['jumlah_anak'],
+            'pendidikan' => $row['pendidikan'],
+            'status' => $row['status'],
+            'nik_ktp' => $row['nik_ktp'],
+            'no_npwp' => $row['no_npwp'],
+            'nomer_telepon' => $row['nomer_telepon'],
+            'alamat' => $row['alamat'],
+            'email' => $row['email'],
+            'email_kantor' => $row['email_kantor'],
+            'skype' => $row['skype'],
+            'lokasi_kantor' => $row['lokasi_kantor'],
+            'avatar' => $row['avatar'] ?? $this->attributes['avatar'],
         ]);
-
-        $karyawan->save();
-        return $karyawan;
     }
 }
