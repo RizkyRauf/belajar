@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('role');
             $table->string('nama_panggilan');
             $table->string('tempat_lahir');
-            $table->string('tanggal');
+            $table->date('tanggal');
             $table->string('agama');
             $table->string('divisi');
             $table->string('golongan_darah');
