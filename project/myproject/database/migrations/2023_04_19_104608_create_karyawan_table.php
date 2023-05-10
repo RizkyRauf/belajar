@@ -35,6 +35,7 @@ return new class extends Migration
             $table->string('email_kantor');
             $table->string('skype');
             $table->string('lokasi_kantor');
+            $table->string('avatar');
             $table->timestamps();
         });
     }

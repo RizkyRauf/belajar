@@ -36,10 +36,6 @@ class Karyawan extends Model
         'avatar',
     ];
 
-    protected $attributes = [
-        'avatar' => 'default.jpg',
-    ];
-
     public function getAvatar()
     {
         // jika avatar tidak ada, avatar akan di isi default avatar yang di ambil dari folder /public/images

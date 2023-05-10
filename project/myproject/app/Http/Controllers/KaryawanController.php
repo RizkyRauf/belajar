@@ -9,7 +9,6 @@ use Carbon\Carbon;
 
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
-use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 class KaryawanController extends Controller
 {
@@ -57,9 +56,9 @@ class KaryawanController extends Controller
 
     public function update(Request $request, $id)
     {
-        // dd($request->all());
         $karyawan = \App\Models\Karyawan::find($id);
         $karyawan->update($request->all());
+        // dd($request->all());
         
         //cek file upload
         if($request->hasFile('avatar')){
@@ -114,6 +113,7 @@ class KaryawanController extends Controller
             
             // Insert ke table karyawan
             $karyawan = new \App\Models\Karyawan();
+            $karyawan->avatar = '';
             $karyawan->fill([
                 'karyawan_id' => $user->id,
                 'nik' => $row['nik'],
