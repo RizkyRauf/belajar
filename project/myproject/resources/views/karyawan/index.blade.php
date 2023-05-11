@@ -8,16 +8,29 @@
             <!-- alert -->
                 <div class="row">
                     <div class="col-12">
+                        <!-- alert success -->
                         @if(session('sukses'))
                             <div class="alert alert-success" role="alert">
                                 {{session('sukses')}}
                             </div>
                         @endif
 
+                        <!-- alert error -->
+                        @if($errors->any())
+                            <div class="alert alert-danger" role="alert">
+                                Terdapat kesalahan dalam mengisi form:
+                                <ul>
+                                    @foreach($errors->all() as $error)
+                                        <li>{{$error}}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+
                         <script>
                             setTimeout(function() {
                                 document.querySelector('.alert').setAttribute('hidden', true);
-                            }, 3000); // ganti angka 5000 dengan jumlah milidetik yang diinginkan (misalnya 3000 untuk 3 detik)
+                            }, 7000); // ganti angka 5000 dengan jumlah milidetik yang diinginkan (misalnya 3000 untuk 3 detik)
                         </script>
                     </div>
                 </div>
@@ -170,9 +183,12 @@
                                 </select>
                             </div>
         
-                            <div class="form-group col-md-6">
-                                <label for="exampleInputEmail1">Nik</label>
-                                <input name="nik" type="text" class="form-control" autocomplete="off" placeholder="Nik....">
+                            <div class="form-group col-md-6 {{ $errors->has('nik') ? ' has-error' : '' }}">
+                                <label for="nik">Nik</label>
+                                <input type="text" name="nik" class="form-control" placeholder="Nik...." value="{{old('nik')}}">
+                                @if($errors->has('nik'))
+                                    <span class="help-block">{{ $errors->first('nik') }}</span>
+                                @endif
                             </div>
                         </div>
                     
@@ -214,7 +230,7 @@
                                 <label>Jumlah Anak</label>
                                 <input name="jumlah_anak" type="text" class="form-control" autocomplete="off" placeholder="Jumlah anak....">
                                 <span class="text-black">
-                                    <h6 class="text-sm fas fa-exclamation-circle fa-xs"> Isi 0 jika tidak ada</h6>
+                                    <h6 class="text-sm fas fa-exclamation-circle fa-xs"> Isi 0 atau '-' jika tidak ada</h6>
                                 </span>
                             </div>
                         </div>
@@ -257,14 +273,20 @@
                         </div>
         
                         <div class="form-row">
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-6 {{ $errors->has('nik_ktp') ? ' has-error' : '' }}">
                                 <label>Nik KTP</label>
-                                <input name="nik_ktp" type="text" class="form-control" autocomplete="off" placeholder="Nik KTP....">
+                                <input name="nik_ktp" type="text" class="form-control" autocomplete="off" placeholder="Nik KTP...." value="{{old('nik_ktp')}}">
+                                @if($errors->has('nik_ktp'))
+                                    <span class="help-block">{{ $errors->first('nik_ktp')}}</span>
+                                @endif
                             </div>
         
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-6 {{ $errors->has('no_npwp') ? ' has-error' : '' }}">
                                 <label>Nik NPWP</label>
-                                <input name="no_npwp" type="text" class="form-control" autocomplete="off" placeholder="Nik NPWP....">
+                                <input name="no_npwp" type="text" class="form-control" autocomplete="off" placeholder="Nik NPWP...." value="{{old('no_npwp')}}">
+                                @if($errors->has('no_npwp'))
+                                    <span class="help-block">{{ $errors->first('no_npwp')}}</span>
+                                @endif
                             </div>
                         </div>
         
@@ -345,6 +367,24 @@
                                 </select>
                             </div>
                         </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label>Avatar</label>
+                                <input type="file" name="avatar" class="form-control">
+                            </div> 
+
+                            <div class="form-group col-md-4">
+                                <label>KTP</label>
+                                <input type="file" name="ktp" class="form-control">
+                            </div> 
+
+                            <div class="form-group col-md-4">
+                                <label>NPWP</label>
+                                <input type="file" name="npwp" class="form-control"> 
+                            </div> 
+                        </div>
+
                         <div class="form-row">
                             <div class="form-group col-md-12">
                                 <label>Alamat</label>
@@ -352,7 +392,8 @@
                             </div>
                         </div>
                         
-                        <div class="form">
+                        
+                        <div class="form-row">
                             <div class="modal-footer">
                                 <button type="submit" class="btn btn-success">submit</button>
                             </div>
