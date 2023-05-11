@@ -10,6 +10,8 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
+use Illuminate\Support\Facades\Validator;
+
 class KaryawanController extends Controller
 {
     public function index(Request $request)
@@ -29,9 +31,27 @@ class KaryawanController extends Controller
         return view('karyawan.index', compact('data_karyawan'));
     }
 
-    public function create(Request $request)
+    public function create(Request $request): RedirectResponse
     {
-        
+
+        //validasi karyawan
+        $validated = $request->validate(
+        [
+            'nik' => 'required|min:3|max:10|unique:karyawan',
+            'nik_ktp' => 'required|unique:karyawan',
+            'no_npwp' => 'required|unique:karyawan',
+        ],
+        [
+            'nik.required' => 'NIK harus diisi.',    
+            'nik.unique' => "'NIK' yang anda masukan sudah ada.",    
+            'nik.min' => 'NIK harus terdiri dari minimal 3 karakter.',    
+            'nik.max' => 'NIK tidak boleh lebih dari 10 karakter.',
+            'nik_ktp.required' => 'harus diisi.',
+            'nik_ktp.unique' => "'Nik KTP' yang anda masukan sudah ada.",
+            'no_npwp.required' => 'NIK harus diisi.',
+            'no_npwp.unique' => "'No NPWP' yang anda masukan sudah ada."
+        ]);
+                   
         //insert ke table Users
         $user = new \App\Models\User();
         $user->role = $request->role;
@@ -44,6 +64,14 @@ class KaryawanController extends Controller
         //Insert ke table karyawan
         $request->request->add(['karyawan_id' => $user->id ]);
         $karyawan = \App\Models\Karyawan::create($request->all());
+
+        if($request->hasFile('avatar')){
+            //upload file kedalam folder // menyimpan
+            $request->file('avatar')->move('images/',$request->file('avatar')->getClientOriginalName());
+            //upload kedalam database
+            $karyawan->avatar = $request->file('avatar')->getClientOriginalName();
+            $karyawan->save();
+        }
 
         return redirect('/karyawan')->with('sukses', 'Data berhasil diinput');
     }
