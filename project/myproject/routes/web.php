@@ -1,10 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CutiController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KaryawanController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,20 +25,32 @@ Route::get('/logout',[AuthController::class, 'logout']);
 Route::post('/postlogin',[AuthController::class, 'postlogin']);
 
 
+#method untyuk karyawan
 Route::group(['middleware' => 'auth'], function(){
+    
+    #Route Change Password
+    Route::get('/change-password', [AuthController::class, 'changePassword']);
+    Route::post('/change-password',[AuthController::class, 'updatePassword']);
     
     Route::get('/dashboard',[DashboardController::class, 'index']);
     Route::get('/',[DashboardController::class, 'index']);
-    
     
     #method karyawan
     Route::get('/karyawan',[KaryawanController::class, 'index']);
     Route::post('/karyawan/create',[KaryawanController::class, 'create']);
     Route::get('/karyawan/{id}/edit',[KaryawanController::class, 'edit']);
-    Route::get('/karyawan/{id}/delete',[KaryawanController::class, 'delete']);
     Route::post('/karyawan/{id}/update',[KaryawanController::class, 'update']);
+    Route::get('/karyawan/{id}/delete',[KaryawanController::class, 'delete']);
     
     #route import
     Route::post('/karyawan/import', [KaryawanController::class, 'import'])->name('karyawan.import');
+
+    #route Export
+    Route::get('/karyawan/export', [KaryawanController::class, 'export'])->name('karyawan.export');
+
+    # Route Cuti
+    Route::get('/cuti', [CutiController::class, 'index']);
+    Route::get('/form/cuti/{name}', [CutiController::class, 'formcuti']);
+    Route::post('/form/cuti/{name}', [CutiController::class, 'storecuti']);
 
 });

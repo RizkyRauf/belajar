@@ -28,7 +28,7 @@
                     <i class="icon-submenu lnr lnr-chevron-down"></i>
                 </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#"><i class="lnr lnr-cog"></i> <span>Change Password</span></a></li>
+                        <li><a href="/change-password"><i class="lnr lnr-cog"></i> <span>Change Password</span></a></li>
                         <li><a href="/logout"><i class="lnr lnr-exit"></i> <span>Logout</span></a></li>
                     </ul>
                 </li>

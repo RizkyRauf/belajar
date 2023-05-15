@@ -1,22 +1,26 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\KaryawanImport;
-use App\Models\Karyawan;
 
 use DateTime;
 use Carbon\Carbon;
+use App\Models\User;
 
+use App\Models\Karyawan;
 use Illuminate\Http\Request;
-use Maatwebsite\Excel\Facades\Excel;
 
+use App\Models\KaryawanImport;
+use App\Exports\KaryawanExport;
+
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Validator;
 
 class KaryawanController extends Controller
 {
     public function index(Request $request)
     {
-        $data_karyawan = \App\Models\Karyawan::query();
+        $data_karyawan = Karyawan::query();
 
         //method pencarian
         if ($request->has('nama_lengkap')) {
@@ -31,7 +35,7 @@ class KaryawanController extends Controller
         return view('karyawan.index', compact('data_karyawan'));
     }
 
-    public function create(Request $request): RedirectResponse
+    public function create(Request $request)
     {
 
         //validasi karyawan
@@ -53,7 +57,7 @@ class KaryawanController extends Controller
         ]);
                    
         //insert ke table Users
-        $user = new \App\Models\User();
+        $user = new User();
         $user->role = $request->role;
         $user->name = $request->nama_panggilan;
         $user->email = $request->email;
@@ -62,29 +66,37 @@ class KaryawanController extends Controller
         $user->save();
         
         //Insert ke table karyawan
-        $request->request->add(['karyawan_id' => $user->id ]);
-        $karyawan = \App\Models\Karyawan::create($request->all());
-
-        if($request->hasFile('avatar')){
-            //upload file kedalam folder // menyimpan
-            $request->file('avatar')->move('images/',$request->file('avatar')->getClientOriginalName());
-            //upload kedalam database
-            $karyawan->avatar = $request->file('avatar')->getClientOriginalName();
-            $karyawan->save();
+        if(empty($request['cuti_karyawan'])) {
+            $request['cuti_karyawan'] = 12;
         }
+        
+        if($request->hasFile('avatar')){
+            // upload file kedalam folder // menyimpan
+            $request->file('avatar')->move('images/',$request->file('avatar')->getClientOriginalName());
+            // set nilai ke kolom avatar
+            $request->merge(['avatar' => $request->file('avatar')->getClientOriginalName()]);
+        } else {
+            // set nilai default ke kolom avatar
+            $request->merge(['avatar' => 'default_avatar.jpg']);
+        }
+
+        $request->request->add(['karyawan_id' => $user->id ]);
+        $karyawan = Karyawan::create($request->all());
+  
+        $karyawan->save();
 
         return redirect('/karyawan')->with('sukses', 'Data berhasil diinput');
     }
 
     public function edit($id)
     {
-        $karyawan = \App\Models\Karyawan::find($id);
+        $karyawan = Karyawan::find($id);
         return view('karyawan/edit', ['karyawan' => $karyawan]);
     }
 
     public function update(Request $request, $id)
     {
-        $karyawan = \App\Models\Karyawan::find($id);
+        $karyawan = Karyawan::find($id);
         $karyawan->update($request->all());
         // dd($request->all());
         
@@ -98,7 +110,7 @@ class KaryawanController extends Controller
         }
 
         // Jika Role dalam database karyawan di update maka role dama database user ikut di update
-        $user = \App\Models\User::find($karyawan->karyawan_id);
+        $user = User::find($karyawan->karyawan_id);
         $user->role = $request->role;
         $user->save();
 
@@ -108,9 +120,9 @@ class KaryawanController extends Controller
     public function delete($id)
     {
         // menghapus berdasarkan id di table karyawan
-        $karyawan = \App\Models\Karyawan::find($id); 
+        $karyawan = Karyawan::find($id); 
         // menghapus berdasarkan id dan mencocokan dari table karyawan
-        $user = \App\Models\User::where('id', $karyawan->karyawan_id)->first(); 
+        $user = User::where('id', $karyawan->karyawan_id)->first(); 
         $karyawan->delete($karyawan);
         $user->delete($user);
         return redirect('/karyawan')->with('sukses', 'Data berhasil dihapus');
@@ -130,7 +142,7 @@ class KaryawanController extends Controller
         foreach ($rows[0] as $row) 
         {
             // Insert ke table Users
-            $user = new \App\Models\User();
+            $user = new User();
             $user->role = $row['role'];
             $user->name = $row['nama_panggilan'];
             $user->email = $row['email'];
@@ -140,8 +152,9 @@ class KaryawanController extends Controller
             
             
             // Insert ke table karyawan
-            $karyawan = new \App\Models\Karyawan();
+            $karyawan = new Karyawan();
             $karyawan->avatar = '';
+            $karyawan->cuti_karyawan = isset($row['cuti_karyawan']) ? $row['cuti_karyawan'] : 12;
             $karyawan->fill([
                 'karyawan_id' => $user->id,
                 'nik' => $row['nik'],
@@ -171,6 +184,28 @@ class KaryawanController extends Controller
         }
 
         return redirect()->back()->with('success', 'Data karyawan berhasil diimport!');
+    }
+
+    public function export(Request $request)
+    {
+        // membuat instance query builder untuk model Karyawan
+        $query = Karyawan::query();
+
+        // memproses kriteria pencarian (search query)
+        if ($request->has('nama_lengkap')) {
+            $query = $query->where('nama_lengkap', 'LIKE', '%'.$request->nama_lengkap.'%');
+        }
+
+        if ($request->has('lokasi_kantor')) {
+            $query = $query->where('lokasi_kantor', 'LIKE', '%'.$request->lokasi_kantor.'%');
+        }
+
+        // mengambil data karyawan berdasarkan kriteria pencarian
+        $data_karyawan = $query->get();
+
+        // mengekspor data karyawan dalam format XLSX
+        return (new KaryawanExport($data_karyawan))->download('dataKaryawan-' . Carbon::now()->format('Y-m-d') . '.xlsx');
+        // return (new KaryawanExport)->download('dataKaryawan-' . Carbon::now()->format('Y-m-d') . '.xlsx');
     }
 
 }

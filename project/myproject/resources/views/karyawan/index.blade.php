@@ -10,7 +10,7 @@
                     <div class="col-12">
                         <!-- alert success -->
                         @if(session('sukses'))
-                            <div class="alert alert-success" role="alert">
+                            <div class="alert alert-success" role="alert" id="sukses-alert">
                                 {{session('sukses')}}
                             </div>
                         @endif
@@ -43,19 +43,24 @@
                             <div class="card-body">
                                 <p class="demo-button">
                                     
-
-                                    <button type="button" class="btn btn-default btn-toastr" data-toggle="modal" data-target="#exampleModalImport">
-                                        <i class="fas fa-file-upload"></i><span> Import File</span>
-                                    </button>
-                                    
-                                    <button type="button" class="btn btn-default btn-toastr" data-toggle="modal" data-target="#exampleModal">
-                                        <i class="fas fa-file-download"></i><span> Download File</span>
-                                    </button>
-
-                                    <button type="button" class="btn btn-default btn-toastr" data-toggle="modal" data-target="#exampleModal">
+                                    <button type="button" class="btn btn-default btn-toastr" data-toggle="modal" data-target="#ModalTambah">
                                         <i class="fas fa-plus"></i><span> Karyawan</span>
                                     </button>
                                     
+                                    <a href="#" class="btn btn-default btn-toastr" data-toggle="modal" data-target="#ModalExport">
+                                        Tampilkan Modal 3
+                                    </a>
+
+                                    <button type="button" class="btn btn-default btn-toastr" data-toggle="modal" data-target="#ModalImport">
+                                        <i class="fas fa-file-upload"></i><span> Import File</span>
+                                    </button>
+                                    
+                                    <button class="btn btn-default btn-toastr btn-dark">
+                                        <a class="" href="{{ route('karyawan.export') }}">
+                                            <i class="fas fa-file-download"></i><span> Download File</span>
+                                        </a>
+                                    </button>
+
                                 </p>
                             </div>
                         </div>
@@ -69,7 +74,7 @@
                         <div class="panel">
                             <div class="panel-heading">
 
-                                <h3>Data karyawan</h3>
+                                <h3>Table karyawan</h3>
 
                                 <div class="right">
                                     <form class="form-inline my-2 my-lg-0">
@@ -77,8 +82,7 @@
                                         <input name="lokasi_kantor" class="form-control mr-sm-2" type="search" placeholder="Search Kantor" aria-label="Search">
                                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
                                         <i class="fas fa-search"></i></button>
-                                    </form>
-                                    
+                                    </form> 
                                 </div>
 
                             </div>
@@ -121,14 +125,13 @@
                                         @endforeach
                                     </tbody>
                                 </table>
-                                {{ $data_karyawan->links() }}
-                                Halaman : {{ $data_karyawan->currentPage() }} <br/>
-                                Jumlah Data : {{ $data_karyawan->total() }} <br/>
                                 <!-- Pagination -->
                                     @if ($data_karyawan instanceof \Illuminate\Pagination\LengthAwarePaginator && $data_karyawan->hasPages())
                                         <div class="row">
                                             <div class="col-sm-6">
-                                                <div class="dataTables_info" role="status" aria-live="polite">Showing {{ $data_karyawan->firstItem() }} to {{ $data_karyawan->lastItem() }} of {{ $data_karyawan->total() }} entries</div>
+                                                <span>
+                                                    <div class="dataTables_info" role="status" aria-live="polite">Showing {{ $data_karyawan->firstItem() }} to {{ $data_karyawan->lastItem() }} of {{ $data_karyawan->total() }} entries</div>
+                                                </span>
                                             </div>
                                             <div class="col-sm-6">
                                                 <nav class="float-right">
@@ -159,11 +162,11 @@
 </div>
 
 <!-- Modal Tambah -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="ModalTambah" tabindex="-1" aria-labelledby="ModalTambah" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Form Tambah Karyawan</h5>
+                    <h5 class="modal-title" id="ModalTambah">Form Tambah Karyawan</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -173,6 +176,7 @@
                     <form action="/karyawan/create" method="POST" enctype="multipart/form-data">
                         @csrf                        
                         <input type="hidden" name="id">
+                        <input type="hidden" name="cuti_karyawan">
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="exampleFormControlSelect1">Role</label>
@@ -407,11 +411,11 @@
 
 <!-- Modal Views -->
     @foreach($data_karyawan as $p)
-        <div class="modal fade" id="ModalViews-{{$p->id}}" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+        <div class="modal fade" id="ModalViews-{{$p->id}}" tabindex="-1" aria-labelledby="ModalViews" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Detail Data Karyawan</h5>
+                        <h5 class="modal-title" id="ModalViews">Detail Data Karyawan</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -568,11 +572,11 @@
 <!-- End Modal Views -->
 
 <!-- Modal Import -->
-    <div class="modal fade" id="exampleModalImport" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="ModalImport" tabindex="-1" role="dialog" aria-labelledby="ModalImport" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Multi Upload Data Karyawan</h5>
+                <h5 class="modal-title" id="ModalImport">Multi Upload Data Karyawan</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
@@ -590,4 +594,25 @@
         </div>
     </div>
 <!-- End Modal Import -->
+
+<!-- Modal Export -->
+        <div class="modal fade" id="ModalExport" tabindex="-1" aria-labelledby="ModalExport" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="ModalExport">Detail Data Karyawan</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        .....
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+<!-- End Modal Export -->
 @stop
