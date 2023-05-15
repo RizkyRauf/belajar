@@ -14,7 +14,6 @@ class Karyawan extends Model
         'karyawan_id',
         'role',
         'nama_lengkap',
-        'role',
         'nama_panggilan',
         'tempat_lahir',
         'tanggal',
@@ -33,6 +32,7 @@ class Karyawan extends Model
         'email_kantor',
         'skype',
         'lokasi_kantor',
+        'cuti_karyawan',
         'avatar',
     ];
 

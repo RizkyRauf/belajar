@@ -104,13 +104,13 @@
                                         <label>Status</label>
                                         <select name="status" class="form-control" autocomplete="off"value="{{$karyawan->status}}">
                                             <option value="Menikah"  @if($karyawan->status == 'Menikah') selected @endif>Menikah</option>
-                                            <option value="Belum Menikah" @if($karyawan->status == 'Belum Menikah') selected @endif>Belum Menikah</option>
+                                            <option value="Tidak Menikah" @if($karyawan->status == 'Tidak Menikah') selected @endif>Tidak Menikah</option>
                                         </select>
                                     </div>
                                    
                                     <div class="form-group col-md-4">
                                         <label>Jumlah Anak</label>
-                                        <input name="jumlah_anak" type="number" class="form-control" autocomplete="off" value="{{$karyawan->jumlah_anak}}">
+                                        <input name="jumlah_anak" type="text" class="form-control" autocomplete="off" value="{{$karyawan->jumlah_anak}}">
                                         <span class="text-black">
                                             <h6 class="text-sm fas fa-exclamation-circle fa-xs"> Isi 0 jika tidak ada</h6>
                                         </span>

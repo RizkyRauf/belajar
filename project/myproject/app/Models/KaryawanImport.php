@@ -11,38 +11,11 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
 class KaryawanImport implements ToModel, WithHeadingRow
 {
-    protected $table = 'karyawan';
     
-    protected $fillable = [
-        'nik',
-        'karyawan_id',
-        'role',
-        'nama_lengkap',
-        'role',
-        'nama_panggilan',
-        'tempat_lahir',
-        'tanggal',
-        'agama',
-        'divisi',
-        'golongan_darah',
-        'jenis_kelamin',
-        'jumlah_anak',
-        'pendidikan',
-        'status',
-        'nik_ktp',
-        'no_npwp',
-        'nomer_telepon',
-        'alamat',
-        'email',
-        'email_kantor',
-        'skype',
-        'lokasi_kantor',
-        'avatar',
-    ];
-
     public function model(array $row)
     {
-        // konversi nilai tanggal ke dalam format tanggal yang benar
+        $defaultCuti = 12; // set nilai default cuti karyawan
+        $cuti = isset($row['cuti_karyawan']) ? $row['cuti_karyawan'] : $defaultCuti;
         
         return new Karyawan([
             'nik' => $row['nik'],
@@ -66,6 +39,7 @@ class KaryawanImport implements ToModel, WithHeadingRow
             'email_kantor' => $row['email_kantor'],
             'skype' => $row['skype'],
             'lokasi_kantor' => $row['lokasi_kantor'],
+            'cuti_karyawan' => $cuti,
         ]);
     }
 

@@ -5,6 +5,7 @@ use Auth;
 use Carbon\Carbon;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -54,5 +55,42 @@ class AuthController extends Controller
         }
 
         return redirect('/dashboard');
+    }
+
+    public function changePassword()
+    {
+        return view('auths.change-password');
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $user = auth()->user();
+
+        $validatedData = $request->validate([
+            'old_password' => 'required',
+            'new_password' => 'required|min:8|confirmed'
+        ],[
+            'old_password.required' => 'Password tidak boleh kosong',
+            'new_password.required' => 'Password tidak boleh kosong',
+            'new_password.min' => 'Password tidak boleh kurang dari 8 angka',
+            'new_password.confirmed' => 'New password harus sama dengan Repeat Password'
+        ]);
+
+        // Verifikasi apakah password baru yang dimasukkan sama dengan konfirmasi password
+        if ($request->new_password !== $request->new_password_confirmation) {
+            return back()->withErrors(['new_password' => 'The new password and confirmation password do not match']);
+        }
+
+        // Verifikasi apakah password lama yang dimasukkan oleh pengguna sesuai dengan password yang tersimpan di database
+        if (! Hash::check($request->old_password, $user->password)) {
+            return back()->withErrors(['old_password' => 'Kata sandi lama yang anda masukan salah', 'user' => $user]);
+        }
+
+        // Jika verifikasi berhasil, maka perbarui password pengguna
+        $user->update([
+            'password' => Hash::make($request->new_password)
+        ]);
+
+        return redirect('/karyawan')->with('success', 'Password anda berhasil di rubah');
     }
 }
