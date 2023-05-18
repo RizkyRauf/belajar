@@ -64,8 +64,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($cuti as $c)
                                     <?php $i = 1; ?>
+                                    @foreach ($cuti as $c)
                                         <tr>
                                             <td><?= $i; ?></td>
                                             <td>{{ $c->nik_karyawan }}</td>
