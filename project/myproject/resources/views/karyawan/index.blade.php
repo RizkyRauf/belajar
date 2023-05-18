@@ -46,20 +46,15 @@
                                     <button type="button" class="btn btn-default btn-toastr" data-toggle="modal" data-target="#ModalTambah">
                                         <i class="fas fa-plus"></i><span> Karyawan</span>
                                     </button>
-                                    
-                                    <a href="#" class="btn btn-default btn-toastr" data-toggle="modal" data-target="#ModalExport">
-                                        Tampilkan Modal 3
-                                    </a>
 
                                     <button type="button" class="btn btn-default btn-toastr" data-toggle="modal" data-target="#ModalImport">
                                         <i class="fas fa-file-upload"></i><span> Import File</span>
                                     </button>
-                                    
-                                    <button class="btn btn-default btn-toastr btn-dark">
-                                        <a class="" href="{{ route('karyawan.export') }}">
-                                            <i class="fas fa-file-download"></i><span> Download File</span>
-                                        </a>
+
+                                    <button type="button" class="btn btn-default btn-toastr" data-toggle="modal" data-target="#exampleModal">
+                                        <i class="fas fa-file-download"></i><span> Download File</span>
                                     </button>
+            
 
                                 </p>
                             </div>
@@ -91,11 +86,11 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>Divisi</th>
+                                            <th>Nik Karyawan</th>
                                             <th>Nama Lengkap</th>
-                                            <th>Alamat</th>
+                                            <th>Divisi</th>
                                             <th>No Telpon</th>
-                                            <th>Lokasi Kantor</th>
+                                            <th>Alamat</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
@@ -104,25 +99,20 @@
                                         @foreach($data_karyawan as $p)
                                             <tr>
                                                 <td><?= $i; ?></td>
+                                                <td>{{ $p->nik }}</td>
+                                                <td><a href="/karyawan/profile/{{$p->id}}">{{ $p->nama_lengkap }}</a></td>
                                                 <td>{{ $p->divisi }}</td>
-                                                <td>{{ $p->nama_lengkap }}</td>
+                                                <td><span>+62</span>{{ $p->nomer_telepon}}</td>
                                                 <td>{{ $p->alamat }}</td>
-                                                <td><a>+62</a>{{ $p->nomer_telepon}}</td>
-                                                <td>{{ $p->lokasi_kantor }}</td>
                                                 <td>
                                                     <a href="/karyawan/{{$p->id}}/edit" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
                                                     <a href="/karyawan/{{$p->id}}/delete" onclick="return confirm('yakin mau di hapus?')" class="btn btn-danger btn-sm">
                                                         <i class="fas fa-trash-alt"></i>
                                                     </a>
-
-                                                    <!-- button views detail data keryawan menggunakan modal -->
-                                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#ModalViews-{{$p->id}}">
-                                                        <i class="fas fa-eye"></i>
-                                                    </button>
                                                 </td> 
                                             </tr>
-                                        <?php $i++; ?>
                                         @endforeach
+                                        <?php $i++; ?>
                                     </tbody>
                                 </table>
                                 <!-- Pagination -->
@@ -409,210 +399,79 @@
     </div>
 <!-- end Tambah -->
 
-<!-- Modal Views -->
-    @foreach($data_karyawan as $p)
-        <div class="modal fade" id="ModalViews-{{$p->id}}" tabindex="-1" aria-labelledby="ModalViews" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="ModalViews">Detail Data Karyawan</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <!-- konten modal Views -->
-                        <section class="container-fluid">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="panel">
-                                        <div class="panel-headling">
-                                            <div class="card-body text-center">
-                                                <img src="{{$p->getAvatar()}}" width="100" height="100" class="img-circle" alt="Avatar">
-                                                <h2 class="heading">{{ $p->nama_lengkap }}</h2>
-                                                <span>
-                                                    <h4 class="font-bold">{{ $p->divisi }}</h4>
-                                                </span>
-                                            </div>
-                                        </div>
-
-                                        <hr>
-                                        <div class="panel-body no-padding">
-                                            <!-- Data nik dan Role -->
-                                            <div class="form-row">
-                                                <div class="form-group col-md-6">
-                                                    <label for="exampleInputEmail1">Nik</label>
-                                                    <option>{{ $p->nik }}</option>
-                                                </div>
-                            
-                                                <div class="form-group col-md-6">
-                                                    <label for="exampleInputEmail1">Role</label>
-                                                    <option>{{ $p->role }}</option>
-                                                </div>
-                                            </div>
-
-                                            <!-- Data Panggilan dan lokasi kantor -->
-                                            <div class="form-row">
-                                                <div class="form-group col-md-6">
-                                                    <label for="exampleInputEmail1">Nama Panggilan</label>
-                                                    <option>{{ $p->nama_panggilan }}</option>
-                                                </div>
-
-                                                <div class="form-group col-md-6">
-                                                    <label for="exampleInputEmail1">Lokasi Kantor</label>
-                                                    <option>{{ $p->lokasi_kantor }}</option>
-                                                </div>
-                                            </div>
-
-                                            <!-- Data Tempat lahir dan tanggal -->
-                                            <div class="form-row">
-                                                <div class="form-group col-md-6">
-                                                    <label for="exampleInputEmail1">Tempat Lahir</label>
-                                                    <option>{{ $p->tempat_lahir }}</option>
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label for="exampleInputEmail1">Tanggal Lahir</label>
-                                                    <option>{{ $p->tanggal }}</option>
-                                                </div>
-                                            </div>
-
-                                            <!-- Data Kelamin dan Pendidikan -->
-                                            <div class="form-row">
-                                                <div class="form-group col-md-6">
-                                                    <label for="exampleInputEmail1">Jenis Kelamin</label>
-                                                    <option>{{ $p->jenis_kelamin }}</option>
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label for="exampleInputEmail1">Pendidikan</label>
-                                                    <option>{{ $p->pendidikan }}</option>
-                                                </div>
-                                            </div>
-                                            
-                                            <!-- Data Status dan Anak -->
-                                            <div class="form-row">
-                                                <div class="form-group col-md-6">
-                                                    <label for="exampleInputEmail1">Status</label>
-                                                    <option>{{ $p->status }}</option>
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label for="exampleInputEmail1">Jumlah Anak</label>
-                                                    <option>{{ $p->jumlah_anak }}</option>
-                                                </div>
-                                            </div>
-
-                                            <!-- Data Agama dan Golongan Darah -->
-                                            <div class="form-row">
-                                                <div class="form-group col-md-6">
-                                                    <label for="exampleInputEmail1">Agama</label>
-                                                    <option>{{ $p->agama }}</option>
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label for="exampleInputEmail1">Golongan Darah</label>
-                                                    <option>{{ $p->golongan_darah }}</option>
-                                                </div>
-                                            </div>
-
-                                            <!-- Data KTP dan NPWP -->
-                                            <div class="form-row">
-                                                <div class="form-group col-md-6">
-                                                    <label for="exampleInputEmail1">Nik KTP</label>
-                                                    <option>{{ $p->nik_ktp }}</option>
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label for="exampleInputEmail1">Nik NPWP</label>
-                                                    <option>{{ $p->no_npwp }}</option>
-                                                </div>
-                                            </div>
-
-                                            <!-- Data HP dan SKype -->
-                                            <div class="form-row">
-                                                <div class="form-group col-md-6">
-                                                    <label for="exampleInputEmail1">No HP</label>
-                                                    <option>+62{{ $p->nomer_telepon }}</option>
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label for="exampleInputEmail1">Skype</label>
-                                                    <option>{{ $p->skype }}</option>
-                                                </div>
-                                            </div>
-
-                                            <!-- Data Email Pribadi dan Kantor -->
-                                            <div class="form-row">
-                                                <div class="form-group col-md-6">
-                                                    <label for="exampleInputEmail1">Email Pribadi</label>
-                                                    <option>{{ $p->email }}</option>
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label for="exampleInputEmail1">Email Kantor</label>
-                                                    <option>{{ $p->email_kantor }}</option>
-                                                </div>
-                                            </div>
-
-                                            <!-- Data Alamat -->
-                                            <div class="form-row">
-                                                <div class="form-group col-md-12">
-                                                    <label for="exampleInputEmail1">Alamat</label>
-                                                    <option>{{ $p->alamat }}</option>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    @endforeach
-<!-- End Modal Views -->
-
 <!-- Modal Import -->
     <div class="modal fade" id="ModalImport" tabindex="-1" role="dialog" aria-labelledby="ModalImport" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="ModalImport">Multi Upload Data Karyawan</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form action="/karyawan/import" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <input type="file" name="file" required>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Upload</button>
-                    </div>
-                </form>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ModalImport">Multi Upload Data Karyawan</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="/karyawan/import" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <input type="file" name="file" required>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Upload</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 <!-- End Modal Import -->
 
 <!-- Modal Export -->
-        <div class="modal fade" id="ModalExport" tabindex="-1" aria-labelledby="ModalExport" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="ModalExport">Detail Data Karyawan</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        .....
-                    </div>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="/karyawan/export" method="POST">
+                    @csrf
+                    <label>Divisi</label>
+                    <select name="divisi" class="form-control" autocomplete="off">
+                        <option selected>Pilih...</option>
+                        <option value="VP Operation-Office Support">VP Operation-Office Support</option>
+                        <option value="General Manager">General Manager</option>
+                        <option value="Core Engine">Core Engine</option>
+                        <option value="Product Service - Bino Premium (Editor)">Product Service - Bino Premium (Editor)</option>
+                        <option value="Product Service - Analis Bino Premium">Product Service - Analis Bino Premium</option>
+                        <option value="Product Service - Uploader Online">Product Service - Uploader Online</option>
+                        <option value="Product Service - Uploader Cetak">Product Service - Uploader Cetak</option>
+                        <option value="Product Service - Uploader TV">Product Service - Uploader TV</option>
+                        <option value="Product Service - Socindex">Product Service - Socindex</option>
+                        <option value="Product Service - Newstensity">Product Service - Newstensity</option>
+                        <option value="Marketing Research">Marketing Research</option>
+                        <option value="Client Service">Client Service</option>
+                        <option value="Infogram Datalab">Infogram Datalab</option>
+                        <option value="Marketing">Marketing</option>
+                        <option value="Office Support">Office Support</option>
+                    </select>
+                    <div class="panel panel-default"></div>
+                    <label>Lokasi Kantor</label>
+                    <select name="lokasi_kantor" class="form-control" autocomplete="off">
+                        <option selected>Pilih...</option>
+                        <option value="Jakarta">Jakarta</option>
+                        <option value="Jogja">Jogja</option>
+                    </select>
+                    <div class="panel panel-default"></div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Export Data Karyawan</button>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
+    </div>
+</div>
 <!-- End Modal Export -->
 @stop

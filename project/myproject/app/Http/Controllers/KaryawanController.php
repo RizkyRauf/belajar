@@ -77,7 +77,7 @@ class KaryawanController extends Controller
             $request->merge(['avatar' => $request->file('avatar')->getClientOriginalName()]);
         } else {
             // set nilai default ke kolom avatar
-            $request->merge(['avatar' => 'default_avatar.jpg']);
+            $request->merge(['avatar' => 'default.jpg']);
         }
 
         $request->request->add(['karyawan_id' => $user->id ]);
@@ -128,6 +128,12 @@ class KaryawanController extends Controller
         return redirect('/karyawan')->with('sukses', 'Data berhasil dihapus');
     }
 
+    public function profile($id)
+    {
+        $karyawan = Karyawan::find($id);
+        return view('karyawan.profile', ['karyawan' => $karyawan]);
+    }
+
     //method import_karyawan
     public function import(Request $request)
     {   
@@ -153,7 +159,7 @@ class KaryawanController extends Controller
             
             // Insert ke table karyawan
             $karyawan = new Karyawan();
-            $karyawan->avatar = '';
+            $karyawan->avatar = 'default.jpg';
             $karyawan->cuti_karyawan = isset($row['cuti_karyawan']) ? $row['cuti_karyawan'] : 12;
             $karyawan->fill([
                 'karyawan_id' => $user->id,
@@ -188,24 +194,22 @@ class KaryawanController extends Controller
 
     public function export(Request $request)
     {
-        // membuat instance query builder untuk model Karyawan
-        $query = Karyawan::query();
+        $divisi = $request->input('divisi');
+        $lokasi_kantor = $request->input('lokasi_kantor');
 
-        // memproses kriteria pencarian (search query)
-        if ($request->has('nama_lengkap')) {
-            $query = $query->where('nama_lengkap', 'LIKE', '%'.$request->nama_lengkap.'%');
-        }
-
-        if ($request->has('lokasi_kantor')) {
-            $query = $query->where('lokasi_kantor', 'LIKE', '%'.$request->lokasi_kantor.'%');
-        }
-
-        // mengambil data karyawan berdasarkan kriteria pencarian
-        $data_karyawan = $query->get();
+        //Query Karyawan sesuai dengan filter divisi dan lokasi kantor
+        $data_karyawan = Karyawan::query()
+            ->when($divisi, function ($query) use ($divisi){
+                return $query->where('divisi', $divisi);
+            })
+            ->when($lokasi_kantor, function ($query) use ($lokasi_kantor){
+                return $query->where('lokasi_kantor', $lokasi_kantor);
+            })
+            ->get();
 
         // mengekspor data karyawan dalam format XLSX
-        return (new KaryawanExport($data_karyawan))->download('dataKaryawan-' . Carbon::now()->format('Y-m-d') . '.xlsx');
-        // return (new KaryawanExport)->download('dataKaryawan-' . Carbon::now()->format('Y-m-d') . '.xlsx');
+        return Excel::download(new KaryawanExport($data_karyawan), 'dataKaryawan-' . Carbon::now()->format('Y-m-d') . '.xlsx');
+        
     }
 
 }

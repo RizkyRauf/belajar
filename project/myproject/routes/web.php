@@ -46,11 +46,13 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/karyawan/import', [KaryawanController::class, 'import'])->name('karyawan.import');
 
     #route Export
-    Route::get('/karyawan/export', [KaryawanController::class, 'export'])->name('karyawan.export');
+    Route::post('/karyawan/export', [KaryawanController::class, 'export'])->name('karyawan.export');
 
     # Route Cuti
     Route::get('/cuti', [CutiController::class, 'index']);
     Route::get('/form/cuti/{name}', [CutiController::class, 'formcuti']);
     Route::post('/form/cuti/{name}', [CutiController::class, 'storecuti']);
 
+    //Route profile
+    Route::get('/karyawan/profile/{id}', [KaryawanController::class, 'profile']);
 });

@@ -46,7 +46,7 @@ class CutiController extends Controller
 
         $karyawan = Karyawan::where('nik', $request->nik_karyawan)->first();
         if(!$karyawan){
-            return back()->with('error', 'Karyawan tidak ditemukan.');
+            return back()->with('error', 'Nik karyawan tidak ditemukan.');
         }
 
         $cuti_karyawan = $karyawan->cuti_karyawan; //get cuti karyawan
