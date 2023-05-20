@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use DateTime;
 use Carbon\Carbon;
-use App\Models\User;
-
 use App\Models\Karyawan;
-use Illuminate\Http\Request;
 
+use Illuminate\Http\Request;
 use App\Models\KaryawanImport;
+
 use App\Exports\KaryawanExport;
+use Illuminate\Foundation\Auth\User;
 
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\RedirectResponse;
@@ -42,18 +42,55 @@ class KaryawanController extends Controller
         $validated = $request->validate(
         [
             'nik' => 'required|min:3|max:10|unique:karyawan',
+            'role' => 'required',
+            'nama_lengkap' => 'required',
+            'nama_panggilan' => 'required',
+            'tempat_lahir' => 'required',
+            'tanggal' => 'required',
+            'agama' => 'required',
+            'divisi' => 'required',
+            'golongan_darah' => 'required',
+            'jenis_kelamin' => 'required',
+            'jumlah_anak' => 'required',
+            'pendidikan' => 'required',
+            'status' => 'required',
             'nik_ktp' => 'required|unique:karyawan',
             'no_npwp' => 'required|unique:karyawan',
+            'nomer_telepon' => 'required',
+            'alamat' => 'required',
+            'email' => 'required',
+            'email_kantor' => 'required',
+            'skype' => 'required',
+            'lokasi_kantor' => 'required',
         ],
         [
-            'nik.required' => 'NIK harus diisi.',    
+            'nik.required' => 'NIK harus diisi.',
             'nik.unique' => "'NIK' yang anda masukan sudah ada.",    
             'nik.min' => 'NIK harus terdiri dari minimal 3 karakter.',    
             'nik.max' => 'NIK tidak boleh lebih dari 10 karakter.',
+            'role.required' => 'Role harus diisi.',
+            'nama_lengkap.required' => 'Nama lengkap harus diisi.',
+            'nama_panggilan.required' => 'Nama panggilan harus diisi.',
+            'tempat_lahir.required' => 'Tempat lahir harus diisi.',
+            'tanggal.required' => 'Tanggal harus diisi.',
+            'agama.required' => 'Agama harus diisi.',
+            'divisi.required' => 'Divisi harus diisi.',
+            'golongan_darah.required' => 'Golongan darah harus diisi.',
+            'jenis_kelamin.required' => 'Jenis kelamin harus diisi.',
+            'jumlah_anak.required' => 'Jumlah anak harus diisi.',
+            'pendidikan.required' => 'Pendidikan harus diisi.',
+            'status.required' => 'Status harus diisi.',
             'nik_ktp.required' => 'harus diisi.',
             'nik_ktp.unique' => "'Nik KTP' yang anda masukan sudah ada.",
             'no_npwp.required' => 'NIK harus diisi.',
-            'no_npwp.unique' => "'No NPWP' yang anda masukan sudah ada."
+            'no_npwp.unique' => "'No NPWP' yang anda masukan sudah ada.",
+            'nomer_telepon.required' => 'Nomer telepon harus diisi.',
+            'alamat.required' => 'Alamat harus diisi.',
+            'email.required' => 'Email harus diisi.',
+            'email_kantor.required' => 'Email kantor harus diisi.',
+            'skype.required' => 'Skype harus diisi.',
+            'lokasi_kantor.required' => 'Lokasi kantor harus diisi.',
+            
         ]);
                    
         //insert ke table Users

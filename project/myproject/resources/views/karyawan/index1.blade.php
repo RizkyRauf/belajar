@@ -64,8 +64,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php $i = 1; ?>
                         @foreach($data_karyawan as $p)
+                            <?php $i = 1; ?>
                             <tr>
                                 <td><?= $i; ?></td>
                                 <td>{{ $p->nik }}</td>
@@ -90,7 +90,7 @@
                                     </button>
                                 </td> 
                             </tr>
-                        <?php $i++; ?>
+                            <?php $i++; ?>
                         @endforeach
                     </tbody>
                 </table>

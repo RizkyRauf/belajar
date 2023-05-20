@@ -10,7 +10,7 @@
             </script>
 		@endif
     <div class="brand">
-        <a href="index.html"><img src="{{asset('admin/assets/img/logo-login.png')}}" alt="Klorofil Logo" width="139" height="21" class="img-responsive logo"></a>
+        <a href="/dashboard"><img src="{{asset('admin/assets/img/logo-login.png')}}" alt="Klorofil Logo" width="139" height="21" class="img-responsive logo"></a>
     </div>
     <div class="container-fluid">
         <div class="navbar-btn">
@@ -22,7 +22,7 @@
             <ul class="nav navbar-nav navbar-right">
                 
                 <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <a href="/dashboard" class="dropdown-toggle" data-toggle="dropdown">
                     <img src="{{asset('admin/assets/img/user.jpg')}}" class="img-circle" alt="Avatar"> 
                     <span>{{auth()->user()->name}}</span> 
                     <i class="icon-submenu lnr lnr-chevron-down"></i>

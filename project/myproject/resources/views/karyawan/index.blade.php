@@ -111,8 +111,8 @@
                                                     </a>
                                                 </td> 
                                             </tr>
-                                        @endforeach
                                         <?php $i++; ?>
+                                        @endforeach
                                     </tbody>
                                 </table>
                                 <!-- Pagination -->
