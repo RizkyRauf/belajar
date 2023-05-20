@@ -52,6 +52,8 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/cuti', [CutiController::class, 'index']);
     Route::get('/form/cuti/{name}', [CutiController::class, 'formcuti']);
     Route::post('/form/cuti/{name}', [CutiController::class, 'storecuti']);
+    Route::get('/cuti/{id}/edit', [CutiController::class, 'edit']);
+    Route::post('/cuti/{id}/update', [CutiController::class, 'update']);
 
     //Route profile
     Route::get('/karyawan/profile/{id}', [KaryawanController::class, 'profile']);

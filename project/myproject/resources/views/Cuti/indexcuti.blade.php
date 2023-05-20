@@ -61,6 +61,7 @@
                                         <th>Divisi</th>
                                         <th>Status</th>
                                         <th>Sisa Cuti</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -71,11 +72,24 @@
                                             <td>{{ $c->nik_karyawan }}</td>
                                             <td>{{ $c->nama_karyawan }}</td>
                                             <td>{{ $c->divisi }}</td>
-                                            <td>{{ $c->status }}</td>
+                                            <td>
+                                                <?php
+                                                if ($c->status == 'Menunggu') {
+                                                    echo '<button class="btn btn-secondary">'. $c->status .'</button>'; // Tombol abu-abu
+                                                } elseif ($c->status == 'Disetujui') {
+                                                    echo '<button class="btn btn-success">' . $c->status . '</button>'; // Tombol hijau
+                                                } elseif ($c->status == 'Ditolak' ) {
+                                                    echo '<button class="btn btn-danger">' . $c->status . '</button>'; // Tombol merah
+                                                }
+                                                ?>
+                                            </td>
                                             <td>{{ $c->sisa_cuti }}</td>
+                                            <td>
+                                                <a href="/cuti/{{$c->id}}/edit" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
+                                            </td> 
                                         </tr>
+                                        <?php $i++; ?>
                                     @endforeach
-                                    <?php $i++; ?>
                                 </tbody>
                             </table>
                         </div>

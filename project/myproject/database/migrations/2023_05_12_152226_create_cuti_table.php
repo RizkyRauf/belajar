@@ -19,6 +19,7 @@ return new class extends Migration
             $table->date('tanggal_mulai');
             $table->date('tanggal_selesai');
             $table->integer('sisa_cuti');
+            $table->string('status');
             $table->string('keterangan');
             $table->timestamp('created_at');
             $table->timestamp('updated_at');

@@ -62,6 +62,7 @@ class CutiController extends Controller
             return redirect('/form/cuti/' . $name)->with('error', 'Karyawan tidak memiliki cukup cuti.');
         }
 
+        
         // Proses pengajuan cuti
         $cuti = new Cuti;
         $cuti->nik_karyawan = $karyawan->nik;
@@ -69,12 +70,15 @@ class CutiController extends Controller
         $cuti->divisi = $request->divisi;
         $cuti->tanggal_mulai = $request->tanggal_mulai;
         $cuti->tanggal_selesai = $request->tanggal_selesai;
-        $cuti->sisa_cuti = $cuti_karyawan; //tidak perlu dikurangi dengan selisih hari pengajuan cuti
-        $cuti->status = 'Menunggu'; // Set status pengajuan cuti menjadi "Menunggu"
+        $cuti->sisa_cuti = $cuti_karyawan - $selisih_hari; // Kurangi cuti karyawan dengan selisih hari pengajuan cuti
         $cuti->keterangan = $request->keterangan;
         $cuti->save();
 
-        return redirect('/cuti')->with('success', 'Pengajuan cuti berhasil disimpan');
+        // Kurangi nilai cuti_karyawan di database
+        $karyawan->cuti_karyawan = $cuti_karyawan - $selisih_hari;
+        $karyawan->save();
+        
+        return redirect('/cuti')->with('success', 'Pengajuan cuti berhasil disimpan.');
 
     }
 
@@ -99,28 +103,22 @@ class CutiController extends Controller
             'tanggal_selesai.required' => 'Tanggal selesai harus diisi.',
             'keterangan.required' => 'Keterangan harus diisi.',
         ]);
-    
+
         $cuti = Cuti::find($id);
         $cuti->nik_karyawan = $request->nik_karyawan;
         $cuti->nama_karyawan = $request->nama_karyawan;
         $cuti->divisi = $request->divisi;
         $cuti->tanggal_mulai = $request->tanggal_mulai;
         $cuti->tanggal_selesai = $request->tanggal_selesai;
+        $cuti->sisa_cuti = $request->sisa_cuti;
         $cuti->keterangan = $request->keterangan;
-        $cuti->status = $request->status;
-    
-        // Kurangi nilai cuti_karyawan di database jika status 'Disetujui'
-        if ($request->status == 'Disetujui') {
-            $selisih_hari = date_diff(date_create($request->tanggal_mulai), date_create($request->tanggal_selesai))->format('%a');
-            $cuti_karyawan = $cuti->karyawan->cuti_karyawan;
-            $cuti->sisa_cuti = $cuti_karyawan - $selisih_hari;
-            $cuti->karyawan->cuti_karyawan = $cuti->sisa_cuti;
-            $cuti->karyawan->save();
-        }
-
         $cuti->save();
 
+        $karyawan = Karyawan::where('nik', $request->nik_karyawan)->first();
+        $karyawan->cuti_karyawan = $cuti->sisa_cuti;
+        $karyawan->save();
+
         return redirect('/cuti')->with('success', 'Pengajuan cuti berhasil diupdate.');
-    
+
     }
 }

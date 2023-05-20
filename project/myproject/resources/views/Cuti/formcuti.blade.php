@@ -110,7 +110,14 @@
                                         <textarea name="keterangan" type="text" class="form-control" autocomplete="off" placeholder="...."></textarea>
                                     </div>
                                 </div>
-
+                                
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <br>
+                                        <span class="text-danger">Pastikan data diri anda sudah terisi dengan benar, sebelum anda mengajukan cuti</span>
+                                    </div>
+                                </div>
+                                
                                 <div class="form-row col-md-12">
                                     <div class="modal-footer">
                                         <button type="submit" class="btn btn-primary">Submit</button>
