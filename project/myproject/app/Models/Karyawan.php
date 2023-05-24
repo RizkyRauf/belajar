@@ -46,4 +46,9 @@ class Karyawan extends Model
         //jika file ditemukan.
         return asset('images/'.$this->avatar);
     }
+
+    public function cuti()
+    {
+        return $this->hasMany(Cuti::class, 'nik_karyawan', 'nik');
+    }
 }

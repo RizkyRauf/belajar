@@ -62,26 +62,26 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-4">
                                         <label>nik_karyawan</label>
-                                        <input type="text" class="form-control" name="nik_karyawan" value="{{$cuti->nik_karyawan}}">
+                                        <input type="text" class="form-control" name="nik_karyawan" value="{{$cuti->nik_karyawan}}" readonly>
                                     </div>
                                     <div class="form-group col-md-4">
                                         <label>nama_karyawan</label>
-                                        <input type="text" class="form-control" name="nama_karyawan" value="{{$cuti->nama_karyawan}}">
+                                        <input type="text" class="form-control" name="nama_karyawan" value="{{$cuti->nama_karyawan}}" readonly>
                                     </div>
                                     <div class="form-group col-md-4">
                                         <label>divisi</label>
-                                        <input type="text" class="form-control" name="divisi" value="{{$cuti->divisi}}">
+                                        <input type="text" class="form-control" name="divisi" value="{{$cuti->divisi}}" readonly>
                                     </div>
                                 </div>
 
                                 <div class="form-row">    
                                     <div class="form-group col-md-6">
                                         <label>tanggal_mulai</label>
-                                        <input type="text" class="form-control" name="tanggal_mulai" value="{{$cuti->tanggal_mulai}}">
+                                        <input type="text" class="form-control" name="tanggal_mulai" value="{{$cuti->tanggal_mulai}}" readonly>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label>tanggal_selesai</label>
-                                        <input type="text" class="form-control" name="tanggal_selesai" value="{{$cuti->tanggal_selesai}}">
+                                        <input type="text" class="form-control" name="tanggal_selesai" value="{{$cuti->tanggal_selesai}}" readonly>
                                     </div>
                                 </div>
 
@@ -96,7 +96,7 @@
                                     </div>  
                                     <div class="form-group col-md-4">
                                         <label>sisa_cuti</label>
-                                        <input type="text" class="form-control" name="sisa_cuti" value="{{$cuti->sisa_cuti}}">
+                                        <input type="text" class="form-control" name="sisa_cuti" value="{{$cuti->sisa_cuti}}" readonly>
                                     </div>
                                 </div>
 

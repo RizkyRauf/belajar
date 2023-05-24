@@ -51,11 +51,10 @@
                                 <a href="/dashboard">
                                     <button type="button" class="btn-toggle lnr lnr-cross text-dark"></button>
                                 </a>
-                               
                             </div>
                         </div>
                         <div class="panel-body">
-                            <form action="/form/cuti/{{ auth()->user()->name }}" method="POST">
+                            <form action="/form/cuti" method="POST">
                                 @csrf
                                 <div class="form-row">
                                     <div class="form-group col-md-4">

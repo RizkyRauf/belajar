@@ -16,7 +16,7 @@
                     <a href="#form" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>From</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
                     <div id="form" class="collapse ">
                         <ul class="nav">
-                            <li><a href="/form/cuti/{{ auth()->user()->name }}" class="">Form Cuti</a></li>
+                            <li><a href="/form/cuti" class="">Form Cuti</a></li>
                             <li><a href="" class="">Barang</a></li>
                             <li><a href="" class="">Service</a></li>
                         </ul>

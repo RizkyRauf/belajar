@@ -22,12 +22,12 @@ class CutiController extends Controller
         return view('Cuti.indexcuti', compact('cuti'));
     }
 
-    public function formcuti(Request $request)
+    public function formcuti()
     {
         return view('Cuti.formcuti');
     }
 
-    public function storecuti(Request $request, $name): RedirectResponse
+    public function storecuti(Request $request): RedirectResponse
     {
         $validated = $request->validate([
             'nik_karyawan' => 'required',
@@ -44,7 +44,7 @@ class CutiController extends Controller
         ]);
 
 
-        $karyawan = Karyawan::where('nik', $request->nik_karyawan)->first();
+        $karyawan = Karyawan::insert('nik', $request->nik_karyawan)->first();
         if(!$karyawan){
             return back()->with('error', 'Nik karyawan tidak ditemukan.');
         }
@@ -52,14 +52,14 @@ class CutiController extends Controller
         $cuti_karyawan = $karyawan->cuti_karyawan; //get cuti karyawan
         $selisih_hari = date_diff(date_create($request->tanggal_mulai), date_create($request->tanggal_selesai))->format('%a');
 
-        //Periksa apakah karyawan sudah memiliki cuti
+        // Periksa apakah karyawan sudah memiliki cuti
         if ($cuti_karyawan == null) {
-            return redirect('/form/cuti/' . $name)->with('error', 'Karyawan belum memiliki cuti.');
+            return redirect('/form/cuti')->with('error', 'Karyawan belum memiliki cuti.');
         }
         
-        //Periksa apakah karyawan memiliki cukup cuti
+        // Periksa apakah karyawan memiliki cukup cuti
         if ($selisih_hari > $cuti_karyawan) {
-            return redirect('/form/cuti/' . $name)->with('error', 'Karyawan tidak memiliki cukup cuti.');
+            return redirect('/form/cuti')->with('error', 'Karyawan tidak memiliki cukup cuti.');
         }
 
         // Proses pengajuan cuti
@@ -74,17 +74,18 @@ class CutiController extends Controller
         $cuti->keterangan = $request->keterangan;
         $cuti->save();
 
-        return redirect('/cuti')->with('success', 'Pengajuan cuti berhasil disimpan');
+        return redirect('/cuti', compact('cuti', 'karyawan'))->with('success', 'Pengajuan cuti berhasil disimpan');
 
     }
 
     public function edit($id)
     {
-        $cuti = Cuti::find($id);
-        return view('Cuti.editcuti', ['cuti' => $cuti]);
+        $cuti = Cuti::findOrFail($id);
+        
+        return view('Cuti.editcuti', compact('cuti'));
     }
 
-    public function update($id, Request $request)
+    public function update(Request $request, $id)
     {
         $validated = $request->validate([
             'nik_karyawan' => 'required',
@@ -100,7 +101,7 @@ class CutiController extends Controller
             'keterangan.required' => 'Keterangan harus diisi.',
         ]);
     
-        $cuti = Cuti::find($id);
+        $cuti = Cuti::findOrFail($id);
         $cuti->nik_karyawan = $request->nik_karyawan;
         $cuti->nama_karyawan = $request->nama_karyawan;
         $cuti->divisi = $request->divisi;

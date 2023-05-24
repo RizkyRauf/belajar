@@ -95,12 +95,11 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php $i = 1; ?>
                                         @foreach($data_karyawan as $p)
                                             <tr>
-                                                <td><?= $i; ?></td>
-                                                <td>{{ $p->nik }}</td>
-                                                <td><a href="/karyawan/profile/{{$p->id}}">{{ $p->nama_lengkap }}</a></td>
+                                                <td>{{ $loop->iteration}}</td>
+                                                <td><a href="/karyawan/profile/{{$p->nik}}">{{ $p->nik }}</a></td>
+                                                <td>{{ $p->nama_lengkap }}</td>
                                                 <td>{{ $p->divisi }}</td>
                                                 <td><span>+62</span>{{ $p->nomer_telepon}}</td>
                                                 <td>{{ $p->alamat }}</td>
@@ -111,7 +110,6 @@
                                                     </a>
                                                 </td> 
                                             </tr>
-                                        <?php $i++; ?>
                                         @endforeach
                                     </tbody>
                                 </table>

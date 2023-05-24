@@ -20,6 +20,7 @@ class Cuti extends Model
         'keterangan',
     ];
 
+
     public function karyawan()
     {
         return $this->belongsTo(Karyawan::class, 'nik_karyawan', 'nik');

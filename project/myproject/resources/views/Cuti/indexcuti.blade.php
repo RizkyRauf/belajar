@@ -60,16 +60,14 @@
                                         <th>Nama Karyawan</th>
                                         <th>Divisi</th>
                                         <th>Status</th>
-                                        <th>Sisa Cuti</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php $i = 1; ?>
                                     @foreach ($cuti as $c)
                                         <tr>
-                                            <td><?= $i; ?></td>
-                                            <td>{{ $c->nik_karyawan }}</td>
+                                            <td>{{ $loop->iteration}}</td>
+                                            <td><a href="/karyawan/profile/{{$c->nik_karyawan}}">{{ $c->nik_karyawan }}</a></td>
                                             <td>{{ $c->nama_karyawan }}</td>
                                             <td>{{ $c->divisi }}</td>
                                             <td>
@@ -83,12 +81,10 @@
                                                 }
                                                 ?>
                                             </td>
-                                            <td>{{ $c->sisa_cuti }}</td>
                                             <td>
                                                 <a href="/cuti/{{$c->id}}/edit" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
                                             </td> 
                                         </tr>
-                                        <?php $i++; ?>
                                     @endforeach
                                 </tbody>
                             </table>

@@ -165,9 +165,9 @@ class KaryawanController extends Controller
         return redirect('/karyawan')->with('sukses', 'Data berhasil dihapus');
     }
 
-    public function profile($id)
+    public function profile($nik)
     {
-        $karyawan = Karyawan::find($id);
+        $karyawan = Karyawan::where('nik', $nik)->first();
         return view('karyawan.profile', ['karyawan' => $karyawan]);
     }
 
