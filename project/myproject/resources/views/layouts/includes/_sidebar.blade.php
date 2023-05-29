@@ -17,8 +17,8 @@
                     <div id="form" class="collapse ">
                         <ul class="nav">
                             <li><a href="/form/cuti" class="">Form Cuti</a></li>
-                            <li><a href="" class="">Barang</a></li>
-                            <li><a href="" class="">Service</a></li>
+                            <!-- <li><a href="" class="">Barang</a></li> -->
+                            <!-- <li><a href="" class="">Service</a></li> -->
                         </ul>
                     </div>
                 </li>

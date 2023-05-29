@@ -2,37 +2,39 @@
 
 namespace App\Exports;
 
-use view;
 use App\Models\Karyawan;
-use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\Exportable;
-use Maatwebsite\Excel\Concerns\WithMapping;
-use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\WithMapping;
 
-class KaryawanExport implements FromCollection, WithHeadings, WithMapping
+class KaryawanExport implements FromCollection, WithMapping, ShouldAutoSize, WithHeadings
 {
-    protected $karyawan;
-    public function __construct($karyawan)
-    {
-        $this->karyawan = $karyawan;
-    }
+    
+    use Exportable;
+
+    /**
+     * @return \Illuminate\Support\Collection
+     */
+
 
      public function collection()
     {
-        return $this->karyawan;
+        return Karyawan::all();
+        
     }
+    
+
     public function headings(): array
     {
         return [
-            'Nik',
-            'Role',
+            'NIK',
             'Nama Lengkap',
             'Nama Panggilan',
             'Tempat Lahir',
-            'Tanggal',
+            'Tanggal Lahir',
             'Agama',
             'Divisi',
             'Golongan Darah',
@@ -40,42 +42,34 @@ class KaryawanExport implements FromCollection, WithHeadings, WithMapping
             'Jumlah Anak',
             'Pendidikan',
             'Status',
-            'Nik KTP',
-            'NIk NPWP',
-            'No Telpon',
+            'NIK KTP',
+            'No NPWP',
+            'Nomer Telepon',
             'Alamat',
-            'Email Pribadi',
-            'Email Kantor',
-            'Skype',
-            'Lokasi Kantor',
-        ];
-    }
-    public function map($karyawan): array
-    {
-        return [
-            $karyawan->nik,
-            $karyawan->role,
-            $karyawan->nama_lengkap,
-            $karyawan->nama_panggilan,
-            $karyawan->tempat_lahir,
-            $karyawan->tanggal,
-            $karyawan->agama,
-            $karyawan->divisi,
-            $karyawan->golongan_darah,
-            $karyawan->jenis_kelamin,
-            $karyawan->jumlah_anak,
-            $karyawan->pendidikan,
-            $karyawan->status,
-            $karyawan->nik_ktp,
-            $karyawan->no_npwp,
-            $karyawan->nomer_telepon,
-            $karyawan->alamat,
-            $karyawan->email,
-            $karyawan->email_kantor,
-            $karyawan->skype,
-            $karyawan->lokasi_kantor,
+            'Lokasi Kantor'
         ];
     }
 
-   
+    public function map($data): array
+    {
+        return [
+            $data->nik,
+            $data->nama_lengkap,
+            $data->nama_panggilan,
+            $data->tempat_lahir,
+            $data->tanggal_lahir,
+            $data->agama,
+            $data->divisi,
+            $data->golongan_darah,
+            $data->jenis_kelamin,
+            $data->jumlah_anak,
+            $data->pendidikan,
+            $data->status,
+            $data->nik_ktp,
+            $data->no_npwp,
+            $data->nomer_telepon,
+            $data->alamat,
+            $data->lokasi_kantor,
+        ];
+    }
 }

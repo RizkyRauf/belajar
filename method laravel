@@ -1,0 +1,77 @@
+Cara membuat table database dengan cara migration.
+
+php artisan make:migration create_karyawan_table --create=karyawan
+
+setelah menjalankan perintah di atas lalu lakukan perintah 
+
+php artisan migrate
+=====================================
+
+cara membuat controller 
+
+php artisan make:controller KaryawanController
+
+=================
+
+cara membuat model dengan laravel
+
+php artisan make:model Karyawan
+
+================
+cara untuk merollback table di database migrations
+php artisan migrate:rollback
+
+===========================
+MSYQL
+=======================
+
+cara masuk ke dalam msyql 
+===================
+mysql -u root -p
+===================
+
+perintah untuk melihat daftar tabel yang ada di database tersebut.
+===================
+USE [nama database];
+===================
+
+cara melihat isi didalam mysql 
+===================
+SHOW DATABASES;
+===================
+
+
+perintah untuk menambahkan coloum pada tables
+==============================================================================================================
+ALTER TABLE [nama table] ADD COLUMN [nama colom yang ingin ditambah] VARCHAR(255) AFTER [sesuaikan setelah];
+==============================================================================================================
+
+perintah jika ingin menambahkan table dengan nilai Null index NO
+=========================================================================================================
+ALTER TABLE [nama table] ADD [nama colom yang ingin ditambah] INT(10) NOT NULL AFTER [sesuaikan setelah];
+=========================================================================================================
+
+perintah untuk melihat struktur di dalam table
+========================
+DESCRIBE [nama tables];
+========================
+
+perintah untuk menghapus colom di dalam tables
+===============================================================
+ALTER TABLE [nama tables] DROP COLUMN [nama colom dalam table];
+===============================================================
+
+perintah untuk melihat value didalam tables
+======================
+SELECT * FROM users;
+======================
+
+perintah menghapus semua isi didalam tables
+======================
+TRUNCATE TABLE users;
+=====================
+
+perintah untuk menghapus 1 data di dalam table di database
+================================
+DELETE FROM karyawan WHERE id=1;
+================================

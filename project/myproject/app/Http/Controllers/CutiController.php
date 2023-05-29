@@ -44,7 +44,7 @@ class CutiController extends Controller
         ]);
 
 
-        $karyawan = Karyawan::insert('nik', $request->nik_karyawan)->first();
+        $karyawan = Karyawan::query()->where('nik', $request->nik_karyawan)->first();
         if(!$karyawan){
             return back()->with('error', 'Nik karyawan tidak ditemukan.');
         }

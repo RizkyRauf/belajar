@@ -95,17 +95,17 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($data_karyawan as $p)
+                                        @foreach($karyawan as $data)
                                             <tr>
                                                 <td>{{ $loop->iteration}}</td>
-                                                <td><a href="/karyawan/profile/{{$p->nik}}">{{ $p->nik }}</a></td>
-                                                <td>{{ $p->nama_lengkap }}</td>
-                                                <td>{{ $p->divisi }}</td>
-                                                <td><span>+62</span>{{ $p->nomer_telepon}}</td>
-                                                <td>{{ $p->alamat }}</td>
+                                                <td><a href="/karyawan/profile/{{$data->nik}}">{{ $data->nik }}</a></td>
+                                                <td>{{ $data->nama_lengkap }}</td>
+                                                <td>{{ $data->divisi }}</td>
+                                                <td><span>+62</span>{{ $data->nomer_telepon}}</td>
+                                                <td>{{ $data->alamat }}</td>
                                                 <td>
-                                                    <a href="/karyawan/{{$p->id}}/edit" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
-                                                    <a href="/karyawan/{{$p->id}}/delete" onclick="return confirm('yakin mau di hapus?')" class="btn btn-danger btn-sm">
+                                                    <a href="/karyawan/{{$data->id}}/edit" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
+                                                    <a href="/karyawan/{{$data->id}}/delete" onclick="return confirm('yakin mau di hapus?')" class="btn btn-danger btn-sm">
                                                         <i class="fas fa-trash-alt"></i>
                                                     </a>
                                                 </td> 
@@ -114,23 +114,23 @@
                                     </tbody>
                                 </table>
                                 <!-- Pagination -->
-                                    @if ($data_karyawan instanceof \Illuminate\Pagination\LengthAwarePaginator && $data_karyawan->hasPages())
+                                    @if ($karyawan instanceof \Illuminate\Pagination\LengthAwarePaginator && $karyawan->hasPages())
                                         <div class="row">
                                             <div class="col-sm-6">
                                                 <span>
-                                                    <div class="dataTables_info" role="status" aria-live="polite">Showing {{ $data_karyawan->firstItem() }} to {{ $data_karyawan->lastItem() }} of {{ $data_karyawan->total() }} entries</div>
+                                                    <div class="dataTables_info" role="status" aria-live="polite">Showing {{ $karyawan->firstItem() }} to {{ $karyawan->lastItem() }} of {{ $karyawan->total() }} entries</div>
                                                 </span>
                                             </div>
                                             <div class="col-sm-6">
                                                 <nav class="float-right">
                                                     <ul class="pagination">
-                                                        @if ($data_karyawan->onFirstPage())
+                                                        @if ($karyawan->onFirstPage())
                                                         <li class="disabled page-item"><a class="page-link" href="#">Previous</a></li>
                                                         @else
-                                                        <li class="page-item"><a class="page-link" href="{{ $data_karyawan->previousPageUrl() }}">Previous</a></li>
+                                                        <li class="page-item"><a class="page-link" href="{{ $karyawan->previousPageUrl() }}">Previous</a></li>
                                                         @endif
-                                                        @if ($data_karyawan->hasMorePages())
-                                                        <li class="page-item"><a class="page-link" href="{{ $data_karyawan->nextPageUrl() }}">Next</a></li>
+                                                        @if ($karyawan->hasMorePages())
+                                                        <li class="page-item"><a class="page-link" href="{{ $karyawan->nextPageUrl() }}">Next</a></li>
                                                         @else
                                                         <li class="disabled page-item"><a class="page-link" href="#">Next</a></li>
                                                         @endif

@@ -20,19 +20,19 @@ class KaryawanController extends Controller
 {
     public function index(Request $request)
     {
-        $data_karyawan = Karyawan::query();
+        $karyawan = Karyawan::query();
 
         //method pencarian
         if ($request->has('nama_lengkap')) {
-            $data_karyawan = $data_karyawan->where('nama_lengkap', 'LIKE', '%'.$request->nama_lengkap.'%');
+            $karyawan = $karyawan->where('nama_lengkap', 'LIKE', '%'.$request->nama_lengkap.'%');
         }
 
         if ($request->has('lokasi_kantor')) {
-            $data_karyawan = $data_karyawan->where('lokasi_kantor', 'LIKE', '%'.$request->lokasi_kantor.'%');
+            $karyawan = $karyawan->where('lokasi_kantor', 'LIKE', '%'.$request->lokasi_kantor.'%');
         }
         
-        $data_karyawan = $data_karyawan->paginate(10);
-        return view('karyawan.index', compact('data_karyawan'));
+        $karyawan = $karyawan->paginate(10);
+        return view('karyawan.index', compact('karyawan'));
     }
 
     public function create(Request $request)
@@ -235,7 +235,7 @@ class KaryawanController extends Controller
         $lokasi_kantor = $request->input('lokasi_kantor');
 
         //Query Karyawan sesuai dengan filter divisi dan lokasi kantor
-        $data_karyawan = Karyawan::query()
+        $data = Karyawan::query()
             ->when($divisi, function ($query) use ($divisi){
                 return $query->where('divisi', $divisi);
             })
@@ -245,8 +245,20 @@ class KaryawanController extends Controller
             ->get();
 
         // mengekspor data karyawan dalam format XLSX
-        return Excel::download(new KaryawanExport($data_karyawan), 'dataKaryawan-' . Carbon::now()->format('Y-m-d') . '.xlsx');
-        
+        return Excel::download(new KaryawanExport($data), 'dataKaryawan-' . Carbon::now()->format('Y-m-d') . '.xlsx');
     }
 
+
+
+    // public function export(Request $request)
+    // {
+    //     return Excel::download(
+    //         new KaryawanExport(
+    //             $divisi = $request->input('divisi'),
+    //             $lokasi_kantor = $request->input('lokasi_kantor'),
+    //         ), 
+    //         'karyawan'. $divisi . '-' . $lokasi_kantor . '-' . Carbon::now()->format('Y-m-d') . '-' .  '.xlsx');
+    // }
+
 }
+

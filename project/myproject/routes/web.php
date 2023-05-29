@@ -44,14 +44,13 @@ Route::group(['middleware' => 'auth'], function(){
     
     #route import
     Route::post('/karyawan/import', [KaryawanController::class, 'import'])->name('karyawan.import');
-
-    #route Export
     Route::post('/karyawan/export', [KaryawanController::class, 'export'])->name('karyawan.export');
+
 
     # Route Cuti
     Route::get('/cuti', [CutiController::class, 'index']);
     Route::get('/form/cuti', [CutiController::class, 'formcuti']);
-    Route::post('/form/cuti/{name}', [CutiController::class, 'storecuti']);
+    Route::post('/form/cuti', [CutiController::class, 'storecuti']);
     Route::get('/cuti/{id}/edit', [CutiController::class, 'edit']);
     Route::post('/cuti/{id}/update', [CutiController::class, 'update']);
 

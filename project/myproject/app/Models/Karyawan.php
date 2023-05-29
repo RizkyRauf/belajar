@@ -8,6 +8,8 @@ use App\Models\User;
 
 class Karyawan extends Model
 {
+    use HasFactory;
+
     protected $table = 'karyawan';
     protected $fillable = [
         'nik',
@@ -47,8 +49,9 @@ class Karyawan extends Model
         return asset('images/'.$this->avatar);
     }
 
-    public function cuti()
+    public function karyawan()
     {
-        return $this->hasMany(Cuti::class, 'nik_karyawan', 'nik');
+        
     }
+
 }
