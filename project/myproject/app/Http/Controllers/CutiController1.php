@@ -24,7 +24,10 @@ class CutiController extends Controller
 
     public function formcuti(Request $request)
     {
-        return view('Cuti.formcuti');
+        $user = auth()->user()->name;
+        $karyawan = Karyawan::where('name', $user)->first();
+
+        return view('Cuti.formcuti', compact('karyawan'));
     }
 
     public function storecuti(Request $request, $name): RedirectResponse

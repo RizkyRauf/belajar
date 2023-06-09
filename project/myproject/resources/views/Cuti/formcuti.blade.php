@@ -59,32 +59,15 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-4">
                                         <label for="exampleInputEmail1">Nik Karyawan</label>
-                                        <input name="nik_karyawan" type="text" class="form-control" autocomplete="off" placeholder=".......">
-                                    </div> 
-                                    <div class="form-group col-md-4">
-                                        <label for="exampleInputEmail1">Divisi Karyawan</label>
-                                        <select name="divisi" class="form-control" autocomplete="off">
-                                            <option selected>Pilih...</option>
-                                            <option value="VP Operation-Office Support">VP Operation-Office Support</option>
-                                            <option value="General Manager">General Manager</option>
-                                            <option value="Core Engine">Core Engine</option>
-                                            <option value="Product Service - Bino Premium (Editor)">Product Service - Bino Premium (Editor)</option>
-                                            <option value="Product Service - Analis Bino Premium">Product Service - Analis Bino Premium</option>
-                                            <option value="Product Service - Uploader Online">Product Service - Uploader Online</option>
-                                            <option value="Product Service - Uploader Cetak">Product Service - Uploader Cetak</option>
-                                            <option value="Product Service - Uploader TV">Product Service - Uploader TV</option>
-                                            <option value="Product Service - Socindex">Product Service - Socindex</option>
-                                            <option value="Product Service - Newstensity">Product Service - Newstensity</option>
-                                            <option value="Marketing Research">Marketing Research</option>
-                                            <option value="Client Service">Client Service</option>
-                                            <option value="Infogram Datalab">Infogram Datalab</option>
-                                            <option value="Marketing">Marketing</option>
-                                            <option value="Office Support">Office Support</option>
-                                        </select>
+                                        <input name="nik_karyawan" type="text" class="form-control" value="{{$karyawan->nik}}" readonly>
                                     </div> 
                                     <div class="form-group col-md-4">
                                         <label for="exampleInputEmail1">Nama Karyawan</label>
-                                        <input name="nama_karyawan" type="text" class="form-control" autocomplete="off" placeholder=".......">
+                                        <input name="nama_karyawan" type="text" class="form-control" value="{{$karyawan->nama_lengkap}}" readonly>
+                                    </div> 
+                                    <div class="form-group col-md-4">
+                                        <label for="exampleInputEmail1">Divisi Karyawan</label>
+                                        <input name="divisi" type="text" class="form-control" value="{{$karyawan->divisi}}" readonly>
                                     </div> 
                                 </div>
 
@@ -96,7 +79,7 @@
 
                                     <div class="form-group col-md-4">
                                         <label for="exampleInputEmail1">Tanggal Mulai</label>
-                                        <input name="tanggal_selesai" type="date" class="form-control" autocomplete="off" placeholder=".......">
+                                        <input name="tanggal_selesai" type="date" class="form-control col-3" autocomplete="off" placeholder=".......">
                                     </div>
                                     <div class="form-group col-md-4">
                                         
