@@ -1,52 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Data Karyawan</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AdminLTE 3 | Tabbed IFrames</title>
 
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-	<!-- VENDOR CSS -->
-	<link rel="stylesheet" href="{{asset('admin/assets/vendor/bootstrap/css/bootstrap.min.css')}}">
-	<link rel="stylesheet" href="{{asset('admin/assets/vendor/font-awesome/css/font-awesome.min.css')}}">
-	<link rel="stylesheet" href="{{asset('admin/assets/vendor/linearicons/style.css')}}">
-	<link rel="stylesheet" href="{{asset('admin/assets/vendor/chartist/css/chartist-custom.css')}}">
-	<!-- MAIN CSS -->
-	<link rel="stylesheet" href="{{asset('admin/assets/css/main.css')}}">
-
-	<!-- GOOGLE FONTS -->
-	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
-	
-	<!-- ICONS -->
-	<link rel="apple-touch-icon" sizes="76x76" href="{{asset('admin/assets/img/favicon.png')}}">
-	<link rel="icon" type="image/png" sizes="96x96" href="{{asset('admin/assets/img/favicon.png')}}">
-	
-	<!-- Boostrap -->
-	<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous"> -->
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{{asset('admin/assets/plugins/fontawesome-free/css/all.min.css')}}">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{{asset('admin/assets/dist/css/adminlte.min.css')}}">
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" href="{{asset('admin/assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css')}}">
 </head>
-<body>
-	<div id="wrapper">
-		@include('layouts.includes._navbar')
-		@include('layouts.includes._sidebar')
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
 
-		@yield('karyawan')
-		@yield('cuti')
+  <!-- .navbar -->
+  @include('layouts.includes._navbar')
+  <!-- /.navbar -->
 
-		<footer>
-			<div class="container-fluid">
-				<p class="copyright">&copy; 2023 <a href="" target="_blank"></a>. All Rights Reserved.</p>
-			</div>
-		</footer>
-	</div>
+  <!-- Main Sidebar Container -->
+  @include('layouts.includes._sidebar')
 
-	<!-- fontawesome -->
-	<script src="https://kit.fontawesome.com/8df80ca4ca.js" crossorigin="anonymous"></script>
+  
 
-	<script src="{{asset('admin/assets/vendor/jquery/jquery.min.js')}}"></script>
-	<script src="{{asset('admin/assets/vendor/bootstrap/js/bootstrap.min.js')}}"></script>
-	<script src="{{asset('admin/assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js')}}"></script>
-	<script src="{{asset('admin/assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js')}}"></script>
-	<script src="{{asset('admin/assets/vendor/chartist/js/chartist.min.js')}}"></script>
-	<script src="{{asset('admin/assets/scripts/klorofil-common.js')}}"></script>
+  
+  <footer class="main-footer dark-mode">
+    <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
+    All rights reserved.
+    <div class="float-right d-none d-sm-inline-block">
+      <b>Version</b> 3.2.0
+    </div>
+  </footer>
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery -->
+<script src="{{asset('admin/assets/plugins/jquery/jquery.min.js')}}"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="{{asset('admin/assets/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+  $.widget.bridge('uibutton', $.ui.button)
+</script>
+<!-- Bootstrap 4 -->
+<script src="{{asset('admin/assets/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<!-- overlayScrollbars -->
+<script src="{{asset('admin/assets/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
+<!-- AdminLTE App -->
+<script src="{{asset('admin/assets/dist/js/adminlte.js')}}"></script>
 </body>
 </html>
