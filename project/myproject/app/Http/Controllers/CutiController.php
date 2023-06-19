@@ -17,7 +17,11 @@ class CutiController extends Controller
             $cuti->where('nama_karyawan', 'LIKE', '%'.$request->nama_karyawan.'%');
         }
 
-        $cuti = $cuti->get();
+        if ($request->has('divisi')) {
+            $cuti->where('divisi', 'LIKE', '%'.$request->divisi.'%');
+        }
+
+        $cuti = $cuti->paginate(10);
 
         return view('Cuti.indexcuti', compact('cuti'));
     }

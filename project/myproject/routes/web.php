@@ -37,14 +37,15 @@ Route::group(['middleware' => 'auth'], function(){
     
     #method karyawan
     Route::get('/karyawan',[KaryawanController::class, 'index']);
-    Route::post('/karyawan/create',[KaryawanController::class, 'create']);
+    Route::get('/karyawan/tambah',[KaryawanController::class, 'tambah']);
+    Route::post('/karyawan/storetambah',[KaryawanController::class, 'storetambah']);
     Route::get('/karyawan/{id}/edit',[KaryawanController::class, 'edit']);
     Route::post('/karyawan/{id}/update',[KaryawanController::class, 'update']);
     Route::get('/karyawan/{id}/delete',[KaryawanController::class, 'delete']);
     
     #route import
     Route::post('/karyawan/import', [KaryawanController::class, 'import'])->name('karyawan.import');
-    Route::post('/karyawan/export', [KaryawanController::class, 'export'])->name('karyawan.export');
+    Route::get('/karyawan/export', [KaryawanController::class, 'export'])->name('karyawan.export');
 
 
     # Route Cuti

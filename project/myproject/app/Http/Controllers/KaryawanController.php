@@ -35,7 +35,12 @@ class KaryawanController extends Controller
         return view('karyawan.index', compact('karyawan'));
     }
 
-    public function create(Request $request)
+    public function tambah()
+    {
+        return view('karyawan.tambah');
+    }
+
+    public function storetambah(Request $request)
     {
 
         //validasi karyawan
