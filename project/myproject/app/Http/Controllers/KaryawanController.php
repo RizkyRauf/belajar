@@ -231,7 +231,7 @@ class KaryawanController extends Controller
 
         }
 
-        return redirect()->back()->with('success', 'Data karyawan berhasil diimport!');
+        return redirect('/karyawan')->back()->with('success', 'Data karyawan berhasil diimport!');
     }
 
     public function export(Request $request)
@@ -252,18 +252,6 @@ class KaryawanController extends Controller
         // mengekspor data karyawan dalam format XLSX
         return Excel::download(new KaryawanExport($data), 'dataKaryawan-' . Carbon::now()->format('Y-m-d') . '.xlsx');
     }
-
-
-
-    // public function export(Request $request)
-    // {
-    //     return Excel::download(
-    //         new KaryawanExport(
-    //             $divisi = $request->input('divisi'),
-    //             $lokasi_kantor = $request->input('lokasi_kantor'),
-    //         ), 
-    //         'karyawan'. $divisi . '-' . $lokasi_kantor . '-' . Carbon::now()->format('Y-m-d') . '-' .  '.xlsx');
-    // }
 
 }
 
