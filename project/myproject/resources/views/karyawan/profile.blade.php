@@ -19,7 +19,7 @@
     </section>
 
     <!-- Buton Top content -->
-   <section class="content">
+    <section class="content">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
@@ -31,9 +31,9 @@
                 </div>
             </div>
         </div>
-   </section>
+    </section>
 
-   <section class="content">
+    <section class="content">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-3">
@@ -178,7 +178,6 @@
                 </div>
             </div>
         </div>
-   </section>
-
+    </section>
 </div>
 @stop

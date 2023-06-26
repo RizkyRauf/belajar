@@ -31,7 +31,7 @@ class KaryawanController extends Controller
             $karyawan = $karyawan->where('lokasi_kantor', 'LIKE', '%'.$request->lokasi_kantor.'%');
         }
         
-        $karyawan = $karyawan->paginate(10);
+        $karyawan = $karyawan->paginate(9);
         return view('karyawan.index', compact('karyawan'));
     }
 

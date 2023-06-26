@@ -64,7 +64,7 @@
    </section>
 
     <!-- Main content -->
-    <section class="content">
+    <!-- <section class="content">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
@@ -113,7 +113,8 @@
                                 </tbody>
                             </table>
                         </div>
-                        <!-- Pagination -->
+
+                        Pagination
                         @if ($karyawan instanceof \Illuminate\Pagination\LengthAwarePaginator && $karyawan->hasPages())
                             <div class="row">
                                 <div class="col-sm-6">
@@ -134,7 +135,7 @@
                                                 </li>
                                             @endif
 
-                                            <!-- Added number for pagination -->
+                                            Added number for pagination
                                             @foreach(range(1, $karyawan->lastPage()) as $page)
                                                 <li class="page-item{{ $page == $karyawan->currentPage() ? ' active' : '' }}">
                                                     <a class="page-link" href="{{ $karyawan->url($page) }}">{{ $page }}</a>
@@ -155,9 +156,134 @@
                                 </div>
                             </div>
                         @endif
-                        <!-- end Pagnition -->
+                        end Pagnition
                     </div>
                 </div>
+            </div>
+        </div>
+    </section> -->
+
+    <section class="content">
+        <div class="card card-solid">
+            <div class="card-header">
+                <a href="/karyawan/export" class="btn btn-outline-success btn-sm">
+                    <i class="fas fa-file-excel"></i><span> Export File</span>
+                </a>
+
+                <div class="float-right">
+                    <form class="form-inline my-2 my-lg-0">
+                        <input name="nama_lengkap" class="form-control mr-sm-2 " type="search" placeholder="Search Name" aria-label="Search">
+                        <input name="lokasi_kantor" class="form-control mr-sm-2" type="search" placeholder="Search Kantor" aria-label="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0 btn-sm" type="submit">
+                        <i class="fas fa-search"></i></button>
+                    </form> 
+                </div>
+            </div>
+            <div class="card-body pb-0">
+                <div class="row">
+                    @foreach($karyawan as $data)
+                    <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column">
+                        <div class="card bg-light d-flex flex-fill">
+                            <div class="card-header text-muted border-bottom-0">
+                            {{$data->divisi}}
+                            </div>
+                            <div class="card-body pt-0">
+                                <div class="row">
+                                    <div class="col-7">
+                                        <h2 class="lead mt-2"><b>{{$data->nama_lengkap}}</b></h2>
+                                        <hr>
+                                        <ul class="ml-4 mb-0 fa-ul text-muted">
+                                            <li class="small mb-2">
+                                                <span class="fa-li">
+                                                    <i class="far fa-calendar-alt"></i>
+                                                </span><b> : {{$data->tempat_lahir}}, {{$data->tanggal}}</b>
+                                            </li>
+
+                                            <li class="small mb-2">
+                                                <span class="fa-li">
+                                                    <i class="fas fa-phone"></i>
+                                                </span><b> : +62{{$data->nomer_telepon}}</b>
+                                            </li>
+
+                                            <li class="small mb-2">
+                                                <span class="fa-li">
+                                                    <i class="fas fa-envelope"></i>
+                                                </span><b> : {{$data->email}}</b>
+                                            </li>
+
+                                            <li class="small mb-2">
+                                                <span class="fa-li">
+                                                    <i class="fas fa-lg fa-building"></i>
+                                                </span><b> : {{$data->lokasi_kantor}}</b>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-5 text-center">
+                                        <img src="{{asset('images/'.$data->avatar)}}" alt="user-avatar" class="img-rounded img-fluid">
+                                    </div> 
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="text-right">
+                                    <a href="/karyawan/profile/{{$data->nik}}" class="btn btn-sm btn-primary">
+                                    <i class="fas fa-eye"></i>
+                                    </a>
+                                    <a href="/karyawan/{{$data->id}}/edit" class="btn btn-sm bg-warning">
+                                    <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a href="/karyawan/{{$data->id}}/delete" class="btn btn-sm bg-danger">
+                                    <i class="fas fa-trash-alt"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+                <br>
+                <!--Pagination-->
+                @if ($karyawan instanceof \Illuminate\Pagination\LengthAwarePaginator && $karyawan->hasPages())
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <span>
+                                <div class="dataTables_info ml-3" role="status" aria-live="polite">Showing {{ $karyawan->firstItem() }} to {{ $karyawan->lastItem() }} of {{ $karyawan->total() }} entries</div>
+                            </span>
+                        </div>
+                        <div class="col-sm-6">
+                            <nav class="float-right">
+                                <ul class="pagination mr-3">
+                                    @if ($karyawan->onFirstPage())
+                                        <li class="disabled page-item">
+                                            <a class="page-link" href="#">Previous</a>
+                                        </li>
+                                    @else
+                                        <li class="page-item">
+                                            <a class="page-link" href="{{ $karyawan->previousPageUrl() }}">Previous</a>
+                                        </li>
+                                    @endif
+
+                                    <!--Added number for pagination-->
+                                    @foreach(range(1, $karyawan->lastPage()) as $page)
+                                        <li class="page-item{{ $page == $karyawan->currentPage() ? ' active' : '' }}">
+                                            <a class="page-link" href="{{ $karyawan->url($page) }}">{{ $page }}</a>
+                                        </li>
+                                    @endforeach
+
+                                    @if ($karyawan->hasMorePages())
+                                        <li class="page-item">
+                                            <a class="page-link" href="{{ $karyawan->nextPageUrl() }}">Next</a>
+                                        </li>
+                                    @else
+                                        <li class="disabled page-item">
+                                            <a class="page-link" href="#">Next</a>
+                                        </li>
+                                    @endif
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                @endif
+                <!--end Pagnition-->
             </div>
         </div>
     </section>
