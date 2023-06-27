@@ -81,7 +81,7 @@ class CutiController extends Controller
         $cuti->keterangan = $request->keterangan;
         $cuti->save();
 
-        return redirect('/cuti', compact('cuti', 'karyawan'))->with('success', 'Pengajuan cuti berhasil disimpan');
+        return redirect('/cuti')->with('sukses', 'Pengajuan cuti berhasil disimpan');
 
     }
 

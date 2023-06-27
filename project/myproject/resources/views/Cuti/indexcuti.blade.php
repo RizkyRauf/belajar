@@ -76,7 +76,7 @@
 
                             <div class="float-right">
                                 <form class="form-inline my-2 my-lg-0">
-                                    <input name="nama_lengkap" class="form-control mr-sm-2 " type="search" placeholder="Search Name" aria-label="Search">
+                                    <input name="nama_karyawan" class="form-control mr-sm-2 " type="search" placeholder="Search Name" aria-label="Search">
                                     <input name="divisi" class="form-control mr-sm-2" type="search" placeholder="Search Divisi" aria-label="Search">
                                     <button class="btn btn-outline-success my-2 my-sm-0 btn-sm" type="submit">
                                     <i class="fas fa-search"></i></button>

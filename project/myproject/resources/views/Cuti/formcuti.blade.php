@@ -91,7 +91,7 @@
                                     </div>
                                     <div class="col-2 mt-3">
                                         <label for="exampleInputEmail1">Tanggal Selesai</label>
-                                        <input name="tanggal_mulai" type="date" class="form-control">
+                                        <input name="tanggal_selesai" type="date" class="form-control">
                                     </div>
                                     <div class="col-8">
                                         <label for="exampleInputEmail1">Keterangan</label>
