@@ -181,7 +181,6 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-        Maatwebsite\Excel\ExcelServiceProvider::class,
         
 
         /*
@@ -213,8 +212,7 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
         
-        //role untuk import exel
-        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        
     ])->toArray(),
 
 ];

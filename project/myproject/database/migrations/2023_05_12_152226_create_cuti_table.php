@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('status');
             $table->string('keterangan');
             $table->timestamp('created_at');
-            $table->timestamp('updated_at');
+            $table->timestamp('updated_at')->useCurrent();
         });
     }
 
