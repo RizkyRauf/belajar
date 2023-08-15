@@ -24,15 +24,16 @@
      ```
  
 3. masuk kedalam folder project laravel lalu masukan perintah di bawah di terminal anda.
+   
    - untuk anda pengguna Windows anda dapat malakukan langkah berikut ini.
-   	```
-     	cp .env.example .env
-     	```
-    - untuk anda pengguna Linux anda dapat melakukan langkah berikut ini.     
-	```
-    	.env.example .env
-   	```
-
+    ```
+    cp .env.example .env
+    ```       
+   - untuk anda pengguna Linux anda dapat melakukan langkah berikut ini.
+     ```
+     .env.example .env
+     ```
+     
 5. langkah selanjutnya anda dapat menjalankan perintah 
 	
 	```
