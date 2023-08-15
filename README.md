@@ -3,12 +3,10 @@
 **Project ERP ini dibuat untuk keperluan belajar**, anda dapat membantu berkontribusi untuk mengembangkan aplikasi ini.
  
 ## Berikut adalah package dan bahasa yang di gunakan pada project ini.
-	
 	- **PHP 8^**
 	- **Laravel 10**
 	- **Boostrap 5**
 	- **Fontawesome V5**
-   
 ## Cara untuk melakukan cloning
  
 1.  ```
@@ -19,14 +17,14 @@
     	- [Install Composer Linux](https://getcomposer.org/doc/00-intro.md#installation-linux-unix-macos)
     	- [Install Composer Windows](https://getcomposer.org/doc/00-intro.md#installation-windows)
       
-	    - setelah anda melakukan instalasi composer. masuk kedalam folder project anda dan lakukan perintah dibawah ini.
+	- setelah anda melakukan instalasi composer. masuk kedalam folder project anda dan lakukan perintah dibawah ini.
 	    ```
 	    composer install
 	    ```
  
 3. masuk kedalam folder project laravel lalu masukan perintah di bawah di terminal anda.
 	    - untuk anda pengguna Windows anda dapat malakukan langkah berikut ini.
-		    ```
+		```
     		cp .env.example .env
     		```
 	    - untuk anda pengguna Linux anda dapat melakukan langkah berikut ini.     
